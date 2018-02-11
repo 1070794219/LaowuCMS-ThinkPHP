@@ -1,0 +1,46 @@
+<title>文章列表</title>
+<include file="Common/header" />
+
+<div class="layui-main article-main">
+    <p class="index-tip"><i class="layui-icon" style="font-size: 25px; color: #FF5722">&#xe756;</i>{$typename}</p>
+	<table id="list" lay-filter="arclist"></table>
+</div>
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  var type = {$type};
+  //第一个实例
+  table.render({
+    elem: '#list'
+    ,height: 800
+    ,url: "{:U('Article/getList')}" //数据接口
+    ,where: {type: type}
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'id', title: 'ID',  sort: true, width:50, fixed: 'left'}
+      ,{field: 'title', title: '文章标题'}
+      ,{field: 'time', title: '发布时间', width:150, sort: true}
+      ,{fixed:'right',width:150,align:'center',toolbar:'#arcBar'}
+    ]]
+  });
+
+  //监听工具条
+	table.on('tool(arclist)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	 
+	  if(layEvent === 'detail'){ //查看
+	    //do somehing
+	    var id = parseInt(tr.find("td[data-field='id']").find("div").html());
+	    window.location.href = "{:U('Article/detail')}" + "?id=" + id;
+	  }
+	});
+
+});
+</script>
+<script type="text/html" id="arcBar">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看原文</a>
+</script>
+
+<include file="Common/footer" />

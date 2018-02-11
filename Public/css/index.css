@@ -1,0 +1,133 @@
+.header{height: 59px; border-bottom: 1px solid #404553;  background-color: #393D49;}
+.logo{position: absolute; left: 0; top: 16px;}
+.logo img{width: 82px; height: 31px;}
+
+#lantern img{
+	width: 100%;
+}
+.index-main{
+	margin-top: 20px;
+}
+.index-tip{
+	text-align: center;
+	position: relative;
+    padding-top: 15px;
+    font-size: 22px;
+    color: #212121
+}
+
+.clear{
+	clear: both;
+	height: 1px;
+	width: 1px;
+}
+
+.site-idea{margin: 50px 0; font-size: 0; text-align: center; font-weight: 300;}
+.site-idea li{display: inline-block; vertical-align: top; *display: inline; *zoom:1; font-size: 14px; }
+.site-idea li{width: 298px; height: 150px; padding: 30px; line-height: 24px; margin-left: 30px; border: 1px solid #d2d2d2; text-align: left;}
+.site-idea li:first-child{margin-left: 0}
+.site-idea .layui-field-title{border-color: #d2d2d2}
+.site-idea .layui-field-title legend{margin: 0 20px 20px 0; padding: 0 20px; text-align: center;}
+
+.footer{padding: 30px 0; line-height: 30px; text-align: center; color: #666; font-weight: 300;}
+body .layui-layout-admin .footer-demo{height: 50px; padding: 5px 0;}
+.footer a{padding: 0 5px;}
+.site-union{margin-top: 10px; color: #999;}
+.site-union>*{display: inline-block; vertical-align: middle;}
+.site-union a[upyun] img{width: 80px;}
+.site-union span{position: relative; top: 3px;}
+.site-union span a{padding: 0; display: inline; color: #999;}
+.site-union span a:hover{text-decoration: underline;}
+
+.footer-demo p{display: inline-block; vertical-align: middle; height: 50px; padding-right: 10px;}
+.footer-demo .site-union{position: relative; top: -9px;}
+
+/*
+* 登录
+*/
+.login-main{
+	width: 400px;
+	margin: 150px auto;
+}
+
+/*
+* 个人中心
+*/
+.myInfo-main{
+	width: 400px;
+	margin: 20px 0 0 100px;
+}
+.user-iframe{
+	width: 100%;
+	height: 100%;
+}
+
+/*
+* 推广
+*/
+.popularize-main{
+	width: 800px;
+	margin: 20px 0 0 100px;
+}
+
+/*
+* 提现
+*/
+.deposit-main{
+	width: 800px;
+	margin: 20px 0 0 100px;
+}
+
+/*
+* 登记找工作
+*/
+.signjob-main{
+	width: 400px;
+	height: 800px;
+	margin-top: 50px;
+	padding: 10px;
+	background:#F0F0F0;
+}
+
+/*
+* 搜索
+*/
+.search-main{
+	height: 400px;
+}
+.search-bar{
+	width: 600px;
+	margin: 100px auto 50px;
+}
+
+.search-list{
+	margin-top: 50px;
+}
+
+.search-list td{
+	text-align: center;
+}
+
+.article-main{
+	margin-top: 50px;
+}
+
+.user-myInfo-status{
+	line-height: 38px;
+}
+
+.user-myInfo-fans{
+	font-size: 16px;
+	line-height: 38px !important;
+	height: 38px;
+}
+
+/*
+* 系统消息
+*/
+.message-main,.message-detail-main{
+	width: 900px;
+	margin: 20px 0 0 100px;
+}
+
+

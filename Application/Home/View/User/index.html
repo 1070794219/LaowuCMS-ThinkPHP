@@ -1,0 +1,48 @@
+<title>个人中心</title>
+<include file="Common/header" />
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="{:U('User/myInfo')}" target="main_iframe">我的信息</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="{:U('User/popularize')}" target="main_iframe">介绍好友</a>
+        </li>
+        <li class="layui-nav-item">
+        	<a href="{:U('User/deposit')}" target="main_iframe">提现</a>
+        </li>
+        <li class="layui-nav-item">
+        	<a href="{:U('User/messages')}" target="main_iframe">系统消息</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <iframe src="{:U('User/myInfo')}" frameborder="0" name="main_iframe" class="user-iframe"></iframe>
+  </div>
+  
+    <!-- 底部固定区域 -->
+    <include file="Common/footer" />
+</div>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+var type = "{:I('get.type')}";
+console.log(type);
+if (type == "nr") {
+  //跳转到未读界面
+  $('.user-iframe').attr('src',"{:U('User/messages')}");
+};
+</script>
+</body>

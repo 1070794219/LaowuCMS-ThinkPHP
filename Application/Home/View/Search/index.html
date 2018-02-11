@@ -1,0 +1,58 @@
+<title>查询工作状态</title>
+<include file="Common/header" />
+<div class="layui-main search-main">
+	<form action="{:U('Search/result')}" method="get" class="layui-form">
+		<div class="search-bar">
+			<input type="text" class="layui-input" placeholder="请输入您预留的手机号进行查询" style="float:left;width:500px" lay-verify="required|phone" name="phone"> 
+			<button class="layui-btn" lay-filter="formDemo" style="float:right;width:90px">搜索</button>
+		</div>
+	</form>
+	<div class="clear"></div>
+	<if condition="$show">
+		<div class="search-list">
+			<fieldset class="layui-elem-field layui-field-title">
+			  <legend>以下为搜索结果</legend>
+			</fieldset>
+			<table class="layui-table">
+			  <colgroup>
+			    <col width="150">
+			    <col width="200">
+			    <col>
+			  </colgroup>
+			  <thead>
+			    <tr>
+			      <th>姓名</th>
+			      <th>申请国籍</th>
+			      <th>申请时间</th>
+			      <th>当前状态</th>
+			    </tr> 
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>{$res['name']}</td>
+			      <td>{$res['country']}</td>
+			      <td>{$res['time']|date="Y-m-d H:i",###}</td>
+			      <td>
+			      	<if condition="$res['status1'] eq 0">
+			      		<!-- 未分配 -->
+			      		<span class="layui-badge layui-bg-gray">未分配</span>
+			      	<else />
+			      		<span class="layui-badge layui-bg-green">已分配</span>
+			      	</if>
+			      	|
+			      	<if condition="$res['status2'] eq 0">
+			      		<span class="layui-badge layui-bg-gray">未派遣</span>
+			      	<else />
+			      		<span class="layui-badge layui-bg-blue">已派遣</span>
+			      	</if>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</if>
+</div>
+
+<script>
+</script>
+<include file="Common/footer" />

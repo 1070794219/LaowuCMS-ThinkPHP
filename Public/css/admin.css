@@ -1,0 +1,37 @@
+.userManager-main{
+	width: 100%;
+}
+.user-iframe{
+	width: 100%;
+	height: 100%;
+}
+
+.classify-main{
+	width: 100% !important;
+}
+
+/*
+* 系统消息
+*/
+.message-main,.message-detail-main{
+	width: 900px;
+	margin: 20px 0 0 100px;
+}
+
+.article-main{
+	width: 100%;
+	height: 100%;
+}
+
+.article-main fieldset{
+	width: 800px;
+	margin: 50px auto;
+}
+
+/*
+* 添加信息
+*/
+.add-message-main{
+	width: 600px;
+	margin: 20px 0 0 100px;
+}

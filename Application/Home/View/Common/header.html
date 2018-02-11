@@ -1,0 +1,44 @@
+  <link rel="stylesheet" href="__LAY__/css/layui.css">
+  <link rel="stylesheet" href="__CSS__/index.css">
+  <script src="__JS__/jquery.js"></script>
+  <script src="__LAY__/layui.js"></script>
+  <script src="__JS__/index.js"></script>
+  <div class="layui-header header">
+     <div class="layui-main">
+      <a class="logo" href="/">
+        <img src="//res.layui.com/images/layui/logo.png" alt="layui">
+      </a>
+
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a href="{:U('Index/index')}">首页</a></li>
+        <li class="layui-nav-item"><a href="{:U('SignJob/index')}">登记找工作</a></li>
+        <li class="layui-nav-item"><a href="{:U('Search/index')}">查询工作状态</a></li>
+        <li class="layui-nav-item"><a href="{:U('Article/index',array('type' => 1))}">联系我们</a></li>
+        <li class="layui-nav-item"><a href="{:U('Article/index',array('type' => 0))}">关于我们</a></li>
+      </ul>
+      <if condition="$isLogin">
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              {$nickname}
+            </a>
+            <dl class="layui-nav-child">
+              <dd><a href="{:U('User/index')}">个人中心</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item"><a href="{:U('Login/logout')}">退出</a></li>
+        </ul>
+      <else/>
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item" id="u_login">登录/注册</li>
+        </ul>
+      </if>
+     </div>
+  </div>
+
+<script>
+  $('#u_login').click(function(){
+    window.location.href = "{:U('Login/index')}";
+  })
+</script>

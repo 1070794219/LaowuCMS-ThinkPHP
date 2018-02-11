@@ -1,0 +1,70 @@
+<?php if (!defined('THINK_PATH')) exit();?><link rel="stylesheet" href="/Public/layui/css/layui.css">
+<link rel="stylesheet" href="/Public/css/index.css">
+<script src="/Public/layui/layui.js"></script>
+
+<div class="layui-main deposit-main">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+	  <legend>个人账户信息</legend>
+	</fieldset>
+	<form action="<?php echo U('User/saveInfo');?>" method="post">
+
+		<div class="layui-form-item">
+			<div class="layui-inline">
+		      <label class="layui-form-label">银行卡</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="bank_account" lay-verify="number" autocomplete="off" class="layui-input" value="<?php echo ($user['bank_account']); ?>">
+		      </div>
+		    </div>
+		</div>
+
+		<div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">微信</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="wechat_account" autocomplete="off" class="layui-input" value="<?php echo ($user['wechat_account']); ?>">
+		      </div>
+		    </div>
+		</div>
+
+		<div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">支付宝</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="alipay_account" autocomplete="off" class="layui-input" value="<?php echo ($user['alipay_account']); ?>">
+		      </div>
+		    </div>
+		</div>
+
+	    <div class="layui-form-item">
+	    	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:50px">修改信息</button>
+	    </div>
+	    <input type="hidden" name="type" value="info">
+	</form>
+
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+	  <legend>个人财务信息</legend>
+	</fieldset>
+
+	<div class="layui-form-item">
+		<div class="layui-inline">
+	      <label class="layui-form-label">可用金额</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="reward" autocomplete="off" class="layui-input" disabled="disabled" value="<?php echo ($reward); ?>">
+	      </div>
+	    </div>
+	</div>
+	<form action="<?php echo U('User/withdraw');?>" method="post" class="layui-form">
+		<div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">提现金额</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="money" lay-verify="required|number" autocomplete="off" class="layui-input"  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+		      </div>
+		    </div>
+		</div>
+		<div class="layui-form-item">
+	    	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:50px">提现</button>
+	    </div>
+
+	</form>
+</div>
