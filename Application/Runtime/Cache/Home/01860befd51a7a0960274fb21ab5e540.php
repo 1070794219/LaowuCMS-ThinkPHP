@@ -15,8 +15,8 @@
         <li class="layui-nav-item"><a href="<?php echo U('Index/index');?>">首页</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('SignJob/index');?>">登记找工作</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Search/index');?>">查询工作状态</a></li>
-        <li class="layui-nav-item"><a href="">联系我们</a></li>
-        <li class="layui-nav-item"><a href="">关于我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 1));?>">联系我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 0));?>">关于我们</a></li>
       </ul>
       <?php if($isLogin): ?><ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item">
@@ -41,7 +41,7 @@
     window.location.href = "<?php echo U('Login/index');?>";
   })
 </script>
-<div class="layui-main signjob-main">
+<div class="layui-main signjob-main" style="height:300px">
 	<form action="<?php echo U('SignJob/addRecord');?>" class="layui-form" method="post">
 		<div class="layui-form-item">
 			<div class="layui-inline">

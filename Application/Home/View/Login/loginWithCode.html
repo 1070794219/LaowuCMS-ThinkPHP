@@ -1,0 +1,38 @@
+<!-- 登录 -->
+<title>登录/注册</title>
+<include file="Common/header" />
+
+<div class="layui-main">
+    <div class="login-main">
+        <form class="layui-form" action="{:U('Login/loginWithCodeFunc')}" method="post">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">验证码</label>
+              <div class="layui-input-inline">
+                <input type="text" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit="" lay-filter="demo1">登录</button>
+            </div>
+          </div>
+          <input type="hidden" name="username" value="{$username}">
+          <input type="hidden" name="password" value="{$password}">
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form = layui.form, $ = layui.jquery;
+    });
+    $('#register').click(function(){
+      window.location.href = "{:U('Login/register')}";
+    })
+
+    layui.use('layer',function () {
+      layer.alert('当前操作频繁,验证码已发送到手机中,请输入验证码后登录 (验证码5分钟内有效)');
+    });
+</script>

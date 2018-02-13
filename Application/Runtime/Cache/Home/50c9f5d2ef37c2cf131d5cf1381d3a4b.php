@@ -17,7 +17,7 @@
         <li class="layui-nav-item"><a href="<?php echo U('SignJob/index');?>">登记找工作</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Search/index');?>">查询工作状态</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 1));?>">联系我们</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 2));?>">关于我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 0));?>">关于我们</a></li>
       </ul>
       <?php if($isLogin): ?><ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item">
@@ -58,15 +58,7 @@
               <input type="password" name="password" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
             </div>
           </div>
-          
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">验证码</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|number" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
+
 
           <div class="layui-form-item">
             <div class="layui-input-block">

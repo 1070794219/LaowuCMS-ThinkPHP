@@ -1,5 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><link rel="stylesheet" href="/Public/layui/css/layui.css">
 <link rel="stylesheet" href="/Public/css/index.css">
+<script src="/Public/js/jquery.js"></script>
 <script src="/Public/layui/layui.js"></script>
 
 <div class="layui-main deposit-main">
@@ -62,9 +63,30 @@
 		      </div>
 		    </div>
 		</div>
+	    <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">验证码</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input">
+              </div>
+              <a href="#" class="layui-btn" id="send_verify">发送</a>
+            </div>
+        </div>
 		<div class="layui-form-item">
 	    	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:50px">提现</button>
 	    </div>
 
 	</form>
 </div>
+
+<script>
+	layui.use(['form'], function () {
+        var form = layui.form, $ = layui.jquery;
+    });
+	  //发送验证码
+	  $('#send_verify').click(function(){
+	  	$.post("<?php echo U('User/sendMessage');?>",{},function(res){
+	        layer.msg(res.message);
+	      });
+	  });
+</script>

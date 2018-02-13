@@ -22,8 +22,9 @@
             <div class="layui-inline">
               <label class="layui-form-label">验证码</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|number" autocomplete="off" class="layui-input">
+                <input type="tel" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input">
               </div>
+              <a href="#" class="layui-btn" id="send_verify">发送</a>
             </div>
           </div>
 
@@ -49,5 +50,27 @@
 
     $('#login').click(function(){
       window.location.href = "{:U('Login/index')}";
+    })
+
+    $('#send_verify').click(function(){
+      var phone = $("input[name='username']").val();
+
+      var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;       
+      if(phone == ''){
+        layer.msg("手机号码不能为空！");
+        return false;
+      }else if(phone.length !=11){
+        layer.msg("请输入有效的手机号码！");
+        return false;
+      }else if(!myreg.test(phone)){
+        layer.msg("请输入有效的手机号码！");
+        return false;
+      }
+
+      //注册
+      var type = 0;
+      $.post("{:U('Login/sendMessage')}",{phone:phone,type:type},function(res){
+        layer.msg(res.message);
+      })
     })
 </script>

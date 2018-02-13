@@ -69,6 +69,13 @@ class UserController extends CommonController{
 		if (!$this->is_login) {
 			$this->error("请登录",U('Login/index'));
 		}
+		$post = I('post.');
+		//首先验证验证码是否有效
+		$verify = (int)$post['verify'];
+		$send_verify = M('Verify')->where("phone = {$this->username} and type = 2")->order('time desc')->find();
+		if (!$send_verify || $verify != (int)$send_verify['verify'] || time() - (int)$send_verify['time'] > 300) {
+			$this->error("验证码无效");
+		}
 		$money = (float)I('post.money');
 		if (empty($money)) {
 			$this->error("请不要随意提交");
@@ -129,9 +136,51 @@ class UserController extends CommonController{
 		$id = (int)I('get.id');
 		$query = M('Message')->where('id = ' . $id)->find();
 		//设置已读
-		M('UserMessage')->where('id = ' . $id . ' and user_id = ' . $this->user_id)->setField('status',1);
+		M('UserMessage')->where('message_id = ' . $id . ' and user_id = ' . $this->user_id)->setField('status',1);
 		$this->assign('arc',$query);
 		$this->display();
+	}
+
+	//反馈总公司
+	public function sendCompany(){
+		$this->display();
+	}
+
+	public function sendFunc(){
+		if (!$this->is_login) {
+			$this->error("请登录",U('Login/index'));
+		}
+
+		$post = I('post.');
+		$title = $post['title'];
+		$body = $post['body'];
+		$user = M('User')->where('id = ' . $this->user_id)->find();
+
+		$message = "用户[{$user['nickname']}]({$user['username']})-向您反馈了一条信息";
+		$body = "标题:" . $title . "<br/>正文:" . $body;
+		sendEmail($message,$body);
+		$this->success("反馈成功");
+	}
+
+	//提现验证码
+	public function sendMessage(){
+		$post = I('post.');
+		$phone = $this->username;
+		$type = 2;
+		//随机生成验证码
+		$code = rand(1000,10000);
+
+		//判断是否已经发送验证码
+		$time = time();
+		$send_time = (int)(M('Verify')->where("phone = {$phone} and type = {$type}")->order('time desc')->getField('time'));
+		if (!empty($send_time)) {
+			if ($time - $send_time < 60) {
+				ajaxReturn("请一分钟之后再重新发送");
+			}
+		}
+
+		$res = sendMessage($phone,$code,$type);
+		ajaxReturn($res);
 	}
 }
 

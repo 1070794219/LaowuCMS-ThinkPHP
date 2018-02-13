@@ -102,7 +102,55 @@ class UserManagerController extends CommonController{
     	//已分配状态
     	M('User')->where('id = ' . $user_id)->setField('status1',1);
     	M('SignJob')->where('user_id = ' . $user_id)->save(array('company_id' => $company,'status1' => 1));
-    	$this->success("分配成功");
+        //发送短信
+        $webhost = C('webhost');
+        $user = M('SignJob')->where('user_id = ' . $user_id)->find();
+        $message = "【扬帆国际劳务派遣】{$user['name']}，您的工作已分配，请登录扬帆国际劳务派遣查看，网址{$webhost}";
+        $res = sendNormalMessage($user['phone'],$message);
+    	$this->success("分配成功\n" . $res);
+    }
+
+    //派遣用户
+    public function dispatch(){
+        $this->display();
+    }
+
+    public function dispatchList(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $page = (int)I('get.page');
+        $limit = (int)I('get.limit');
+
+        $query['code'] = 0;
+        $query['msg'] = "";
+        $query['count'] = (int)(M('SignJob')->count());
+        $query['data'] = M('SignJob')->order('id desc')->limit(($page-1)*$limit,$page*$limit)->select();
+        foreach($query['data'] as &$one){
+            $one['company'] = M('Company')->where('id = ' . $one['country_id'])->getField('name');
+            $one['sex'] = ($one['sex'] == 0 ? "女" : "男");
+            $one['status'] = ((int)$one['status2'] == 0 ? '<span class="layui-badge layui-bg-orange">未派遣</span>' : '<span class="layui-badge layui-bg-cyan">已派遣</span>');
+            $one['time'] = date('Y-m-d',$one['time']);
+        }
+        echo json_encode($query);
+    }
+
+    public function dispatchFunc(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $id = (int)I('get.id');
+        M('User')->where('id = ' . $id)->setField('status2',1);
+        $query = M('SignJob')->where("user_id = {$id}")->setField('status2',1);
+        if ($query) {
+            $this->success("派遣成功");
+        }else{
+            $this->error("派遣失败");
+        }
     }
 }
 

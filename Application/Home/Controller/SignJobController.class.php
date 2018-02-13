@@ -31,7 +31,11 @@ class SignJobController extends CommonController{
 			);
 		$query = M('SignJob')->add($record);
 		if ($query) {
-			$this->success("登记成功",U('Search/result',array('phone' => $this->user_id)));
+			//发送邮件到管理员
+			$title = "[ " . $record['name'] . " ] - 登记了工作";
+			$message = "姓名:{$record['name']}\n电话:{$record['phone']}\n微信:{$record['wechat']}";
+			sendEmail($title,$message);
+			$this->success("登记成功",U('Search/result',array('phone' => $this->username)));
 		}else{
 			$this->error("登记失败,请联系管理员");
 		}

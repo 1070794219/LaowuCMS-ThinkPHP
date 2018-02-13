@@ -15,6 +15,12 @@ class LoginController extends CommonController{
 	public function addUser(){
 		$post = I('post.');
 		$from_id = (int)$post['f'];
+		//首先验证验证码是否有效
+		$verify = (int)$post['verify'];
+		$send_verify = M('Verify')->where("phone = {$post['username']} and type = 0")->order('time desc')->find();
+		if (!$send_verify || $verify != (int)$send_verify['verify'] || time() - (int)$send_verify['time'] > 300) {
+			$this->error("验证码无效");
+		}
 		$user = array(
 				'username' => $post['username'],
 				'password' => md5($post['password']),
@@ -54,13 +60,92 @@ class LoginController extends CommonController{
 		}
 		$db = M('User');
 		$user = $db->where('username = ' . $post['username'])->find();
-		if (!$user || $user['password'] != md5($post['password'])) {
-			$this->error("账号或密码错误");	
+		if (!$user) {
+			$this->error("账号不存在");	
+		}else if($user['password'] != md5($post['password'])){
+			$wrong = (int)$user['wrong'];
+			//如果超过三次
+			if ($wrong >= 3) {
+				//跳转
+				$this->loginWithCode($post['username'],$post['password']);
+			}else{
+				$wrong++;
+				M('User')->where('username = ' . $post['username'])->setField('wrong',$wrong);
+				//否则提示错误
+				$this->error("账号或密码错误");
+			}
+			
+		}else{
+
+			//密码正确也要验证
+			$wrong = (int)$user['wrong'];
+			//如果超过三次
+			if ($wrong >= 3) {
+				//跳转
+				$this->loginWithCode($post['username'],$post['password']);
+			}else{
+				if ((int)$user['forbid'] == 1) {
+					$this->error("账号已被加入黑名单");
+				}
+				//登录成功
+				session('id',$user['id']);
+				session('username',$user['username']);
+
+				//判断是否有未读消息
+				$not_read = M('UserMessage')->where('user_id = ' . $user['id'] . ' and status = 0')->count();
+				if ($not_read) {
+					//有未读消息
+					redirect(U('User/index',array('type' => 'nr')));
+				}else{
+					redirect(U('Index/index'));
+				}
+			}
+		}
+	}
+
+	public function loginWithCode($username,$password){
+		//发送验证码
+		//找到最近一条登录验证码
+		$verify = M('Verify')->where("phone = '{$username}' and type = 1")->order('time desc')->find();
+		if (!$verify || time() - (int)($verify['time']) > 300) {
+			//不存在或者验证码失效
+			$code = rand(1000,10000);
+			sendMessage($username,$code,1);
+		}
+
+		//传输账号密码
+		$this->assign('username',$username);
+		$this->assign('password',$password);
+		$this->display('loginWithCode');
+	}
+
+	public function loginWithCodeFunc(){
+		$post = I('post.');
+
+		if (!IS_POST) {
+			$this->error("非法请求");
+		}
+		$db = M('User');
+		$user = $db->where('username = ' . $post['username'])->find();
+		if (!$user) {
+			$this->error("账号不存在");	
+		}else if($user['password'] != md5($post['password'])){
+			$wrong = (int)$user['wrong'];
+			$wrong++;
+			M('User')->where('username = ' . $post['username'])->setField('wrong',$wrong);
+			//否则提示错误
+			$this->error("账号或密码错误",U('Login/index'));
+		}
+		$code = $post['verify'];
+		$verify = M('Verify')->where("phone = '{$post['username']}' and type = 1")->order('time desc')->find();
+		if ($code != $verify['verify'] || time() - (int)$verify['time'] > 300) {
+			$this->error("验证码无效",U('Login/index'));
 		}
 		if ((int)$user['forbid'] == 1) {
-			$this->error("账号已被加入黑名单");
+			$this->error("账号已被加入黑名单",U('Login/index'));
 		}
 		//登录成功
+		M('User')->where('username = ' . $post['username'])->setField('wrong',0);
 		session('id',$user['id']);
 		session('username',$user['username']);
 
@@ -73,7 +158,6 @@ class LoginController extends CommonController{
 			redirect(U('Index/index'));
 		}
 	}
-
 	//退出
 	public function logout(){
 		if (!isset($_SESSION['id'])) {
@@ -93,6 +177,31 @@ class LoginController extends CommonController{
 		$funds += C('reward');
 		M('User')->where('id = ' . $from_id)->setField('fans',$fans);
 		M('UserFunds')->where('user_id = ' . $from_id)->setField('funds',$funds);
+	}
+
+	//验证码
+	public function sendMessage(){
+		$post = I('post.');
+		$phone = trim($post['phone']);
+		$type = (int)$post['type'];
+		//随机生成验证码
+		$code = rand(1000,10000);
+
+		//判断是否注册
+		if (M('User')->where("username = {$phone}")->find()) {
+			ajaxReturn("该手机号已被注册");
+		}
+		//判断是否已经发送验证码
+		$time = time();
+		$send_time = (int)(M('Verify')->where("phone = {$phone} and type = {$type}")->order('time desc')->getField('time'));
+		if (!empty($send_time)) {
+			if ($time - $send_time < 60) {
+				ajaxReturn("请一分钟之后再重新发送");
+			}
+		}
+
+		$res = sendMessage($phone,$code,$type);
+		ajaxReturn($res);
 	}
 }
 ?>

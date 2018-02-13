@@ -16,7 +16,7 @@
         <li class="layui-nav-item"><a href="<?php echo U('SignJob/index');?>">登记找工作</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Search/index');?>">查询工作状态</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 1));?>">联系我们</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 2));?>">关于我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 0));?>">关于我们</a></li>
       </ul>
       <?php if($isLogin): ?><ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item">

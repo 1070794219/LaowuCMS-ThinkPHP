@@ -60,6 +60,9 @@
         <li class="layui-nav-item">
         	<a href="<?php echo U('User/messages');?>" target="main_iframe">系统消息</a>
         </li>
+        <li class="layui-nav-item">
+          <a href="<?php echo U('User/sendCompany');?>" target="main_iframe">反馈总公司</a>
+        </li>
       </ul>
     </div>
   </div>
