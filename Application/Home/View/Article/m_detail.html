@@ -1,0 +1,12 @@
+<title>{$arc['title']}</title>
+<include file="Common/m_header" />
+	
+<php>
+$type = ((int)I('get.type') == 0 ? "关于我们" : "联系我们");
+</php>
+<div class="m-detail-header">
+	<button class="layui-btn">{$type}</button>
+</div>
+<div class="layui-field-box m-detail-body">
+{$arc['body']}
+</div>

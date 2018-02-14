@@ -1,0 +1,62 @@
+<title>提现</title>
+<include file="Common/m_header_user" />
+<div class="layui-form-item">
+	<div class="layui-inline">
+      <label class="layui-form-label">可用金额:</label>
+      <div class="layui-input-inline">
+        <label class="layui-form-label" style="text-align:left">{$reward} 元</label>
+      </div>
+    </div>
+</div>
+<form action="{:U('User/withdraw')}" method="post" class="layui-form m-deposit-main">
+	<div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">提现账户</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="bank" lay-verify="required" autocomplete="off" class="layui-input">
+		      </div>
+		    </div>
+		</div>
+	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">提现金额</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="money" lay-verify="required|number" autocomplete="off" class="layui-input"  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+	      </div>
+	    </div>
+	</div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">验证码</label>
+          <div class="layui-input-inline">
+            <input type="tel" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input"  id="verify" >
+            <a href="#" class="layui-btn" id="send_verify" style="margin-left:10px;background:#ce6600">发送验证码</a>
+
+          </div>
+        </div>
+    </div>
+	<div class="layui-form-item">
+    	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:25%;margin-top:100px;width:60%;background:#ce6600">点击提现</button>
+    </div>
+
+</form>
+<style>
+	#m-header-user-2{
+		background: #ce6600 !important;
+	}
+	#verify{
+		width:100px;
+		display:inline-block !important;
+	}
+</style>
+<script>
+	layui.use(['form'], function () {
+        var form = layui.form, $ = layui.jquery;
+    });
+	  //发送验证码
+	  $('#send_verify').click(function(){
+	  	$.post("{:U('User/sendMessage')}",{},function(res){
+	        layer.msg(res.message);
+	      });
+	  });
+</script>

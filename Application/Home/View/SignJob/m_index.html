@@ -1,0 +1,53 @@
+<title>登记找工作</title>
+<include file="Common/m_header" />
+<div class="m-detail-header">
+	<button class="layui-btn">登记找工作</button>
+</div>
+	<form action="{:U('SignJob/addRecord')}" class="layui-form m-sign-main" method="post">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label">姓名</label>
+			    <div class="layui-input-inline">
+			      <input type="text" name="name" autocomplete="off" class="layui-input" lay-verify="required" placeholder="姓名">
+			    </div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+		      <label class="layui-form-label">国籍</label>
+		      <div class="layui-input-inline">
+		        <select name="country" lay-verify="">
+		        	<volist name="country" id="c">
+				  		<option value="{$c['id']}">{$c['name']}</option>
+					</volist>
+				</select> 
+		      </div>
+		    </div>
+		</div>
+		<div class="layui-form-item">
+<!-- 		    <div class="layui-inline">
+ -->		      <label class="layui-form-label">性别</label>
+		      <div class="layui-input-block">
+		      	<input type="radio" name="sex" value="0" title="女" checked>
+		        <input type="radio" name="sex" value="1" title="男">
+		      </div>
+		    <!-- </div> -->
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label">微信</label>
+			    <div class="layui-input-inline">
+			      <input type="text" name="wechat" autocomplete="off" class="layui-input" lay-verify="required" placeholder="微信号">
+			    </div>
+			</div>
+		</div>
+
+		  <div class="layui-form-item">
+		    <button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:170px;background: #02338f;">登记</button>
+		</div>
+	</form>
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form = layui.form(), $ = layui.jquery;
+    });
+</script>

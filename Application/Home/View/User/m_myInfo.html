@@ -1,0 +1,64 @@
+<title>个人信息</title>
+<include file="Common/m_header_user" />
+<form class="layui-form m-myInfo-main" action="{:U('User/saveInfo')}" method="post">
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">用户名:</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="phone" autocomplete="off" class="layui-input" disabled="disabled" value="{$user['username']}">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">昵 称:</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="nickname" lay-verify="required" disabled="disabled" autocomplete="off" class="layui-input" value="{$user['nickname']}">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">状态:</label>
+	      <div class="layui-input-inline user-myInfo-status">
+	      <label class="layui-form-label m-myInfo-status">
+    		<if condition="$user['status1'] eq 0">
+	      		<!-- 未分配 -->
+	      		未分配
+	      	<else />
+	      		已分配
+	      	</if>
+	      	|
+	      	<if condition="$user['status2'] eq 0">
+	      		未派遣
+	      	<else />
+	      		已派遣
+	      	</if>
+	      	</label>
+	      </div>
+	    </div>
+	    <div class="layui-inline user-myInfo-fans">
+	      <label class="layui-form-label">介绍人数:</label>
+	      <div class="layui-input-inline">
+	        <label class="layui-form-label m-myInfo-status">{$user['fans']} 人</label>
+	      </div>
+	    </div>
+	  </div>
+	  <input type="hidden" name="type" value="info">
+
+	<!-- 修改密码 -->
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">新密码</label>
+	      <div class="layui-input-inline">
+	        <input type="password" name="password" lay-verify="required" autocomplete="off" class="layui-input" placeholder="如不修改不用填写">
+	      </div>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label" style="width:110%;text-align:center">提示:成功介绍派遣的单人奖励{:C('reward')}元</label>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <button class="layui-btn" lay-submit="" lay-filter="demo2" style="width:70%;margin-left:25%;background:#ce6600">点击修改</button>
+	  </div>
+	  <input type="hidden" name="type" value="pwd">
+	</form>

@@ -32,12 +32,38 @@ class CommonController extends Controller{
 	public function display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '')
     {
  
-        $template = ($templateFile ? $templateFile : ucfirst(CONTROLLER_NAME) . '/' . ACTION_NAME);
+        $template = null;
+        $tplName = null;
+        if($templateFile){
+        	//传入值
+        	$template = $templateFile;
+
+            //判断success和error
+        	//获取模板名字
+	        $temp = explode("/", $template);
+	        $tplName = $temp[count($temp) - 1];
+        }else{
+        	$template = ucfirst(CONTROLLER_NAME) . '/' . ACTION_NAME;
+        }
+
+
         if(isMobile())
         {
-            $template = ucfirst(CONTROLLER_NAME) . '/' . "m_" . ACTION_NAME;
+        	//如果传入模板
+            // echo $tplName;
+        	if ($tplName) {
+                if ($tplName != "dispatch_jump.tpl") {
+                    $template = ucfirst(CONTROLLER_NAME) . '/' . "m_" . $tplName;
+                }else{
+                    $template = $templateFile;
+                }
+        	}else{
+        		$template = ucfirst(CONTROLLER_NAME) . '/' . "m_" . ACTION_NAME;
+        	}
         }
         try{
+        	// echo $templateFile;
+        	// echo $template;
             parent::display($template, $charset, $contentType, $content, $prefix);
         }catch(\Exception $e) {
             header('HTTP/1.1 404 Not Found');

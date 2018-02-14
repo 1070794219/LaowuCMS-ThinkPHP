@@ -1,0 +1,196 @@
+body{
+	width: 100%;
+}
+.m-header{
+	width: 100%;
+}
+.m-header-btn{
+	font-size: 18px;
+	background: #02338f;
+	height: 40px;
+	width: 70% !important;
+	margin-left: 15%;
+}
+.m-header-logo img{
+	margin-top: 50px;
+	width: 66%;
+	height: auto;
+	margin-left: 17%;
+}
+.m-header-nav-btn{
+	margin-top: 20px;
+}
+.m-header-nav-btn button{
+
+	width: 25%;
+}
+
+.m-header-btn-list a{
+	display: block;
+	background: #02338f;
+	width: 80%;
+	height: 50px;
+	font-size: 18px;
+	line-height: 50px;
+	margin: 15px 10% !important;
+}
+
+/*
+* 注册 登录
+*/
+.m-register-main{
+	margin-top: 40px;
+	margin-right: 80px;
+}
+.m-register-main label{
+	font-size: 18px;
+	color: #02338f;
+}
+.m-register-main a,.m-register-main button{
+	width: 45%;
+	font-size: 18px;
+}
+.m-register-main .change{
+	font-size: 18px;
+	color: #a3adcc;
+}
+
+/*
+* 登录验证码
+*/
+.m-login-main{
+	margin-top: 50px;
+}
+
+/*
+* 忘记密码
+*/
+.m-forget-main{
+	font-size: 18px;
+	margin-top: 40px;
+	margin-right: 80px;
+}
+
+/*
+* 文章详情页
+*/
+.m-detail-header{
+	margin: 20px;
+}
+.m-detail-header button{
+	font-size: 18px;
+	background: #02338f;
+	height: 40px;
+	width: 70%;
+	margin-left: 15%;
+}
+.m-detail-body{
+	font-size: 17px;
+	color: #02338f;
+}
+
+/*
+* 登记找工作
+*/
+.m-sign-main{
+	margin-right: 80px;
+}
+
+/*
+* 查找工作
+*/
+.m-search-main{
+	margin: 20px 80px 10px 80px;
+}
+.m-search-list{
+	width: 70%;
+	margin-left: 15%;
+	padding: 20px;
+}
+.m-search-list p{
+	font-size: 20px;
+	color: #02338f;
+	margin-bottom: 20px;
+}
+.m-search-tip{
+	font-size: 16px;
+	color: #a3adcc;
+	margin-bottom: 20px;
+	width: 100%;
+	text-align: center;
+}
+
+
+/*
+* 用户中心
+*/
+.m-user-header{
+	width: 100%;
+}
+.m-user-logo img{
+	margin-top: 10px;
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+}
+.m-user-header-btns{
+	width: 80%;
+	margin-left: 10%;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.m-user-header-btns a{
+	font-size: 18px;
+	height: 35px !important;
+	line-height: 35px !important;
+	background: #282828;
+}
+.m-myInfo-main{
+	margin-right: 60px;
+	margin-top: 20px;
+	font-size: 16px;
+	color: #02338f;
+}
+.m-myInfo-main label{}
+.m-myInfo-main .layui-inline{
+	margin-bottom: 0px;
+}
+.m-myInfo-status{
+	width: 130px;
+	text-align: left;
+}
+
+/*
+* 推广
+*/
+.m-popularize-main{
+	width: 90%;
+	margin-left: 5%;
+	color: #02338f;
+}
+.m-popularize-main #qrCode{
+	width: 150px;
+	height: 150px;
+	margin: 20px auto;
+}
+
+/*
+* 提现
+*/
+.m-deposit-main{
+	margin-right: 40px;
+}
+
+/*
+*反馈总公司
+*/
+.m-send-main{
+	margin-right: 40px;
+	margin-top: 40px;
+}
+.m-send-main .layui-form-label{
+	width: 60px !important;
+}
+.m-send-main .layui-input-block{
+	margin-left: 90px !important;
+}

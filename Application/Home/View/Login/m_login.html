@@ -1,0 +1,50 @@
+<title>登录</title>
+<include file="Common/m_header" />
+<form action="{:U('Login/login')}" class="layui-form m-register-main" method="post">
+   <div class="layui-form-item">
+    <label class="layui-form-label">手机号</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" lay-verify="required|phone" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-block">
+      <input type="password" name="password" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" placeholder="设置6位数密码">
+    </div>
+  </div>
+  
+<!--   <div class="layui-form-item">
+      <label class="layui-form-label">验证码</label>
+      <div class="layui-input-block">
+        <input type="text" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input" placeholder="输入短信验证码">
+      </div>
+  </div> -->
+
+  <div class="layui-form-item">
+    <div class="layui-input-block" style="text-align:right">  <button class="layui-btn" lay-submit="" lay-filter="demo1" style="background:#02338f">登录</button>   
+      <a href="{:U('Login/register')}" class="layui-btn" style="background:#02338f">注册</a>
+      
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-input-block change" style="text-align:center">      
+      <span>忘记密码?点击找回</span>
+    </div>
+  </div>
+  <input type="hidden" name="f" value="{:I('get.f')}">
+</form>
+
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form = layui.form, $ = layui.jquery;
+    });
+
+    $('#login').click(function(){
+      window.location.href = "{:U('Login/index')}";
+    })
+    
+    $(".change").click(function(){
+      window.location.href = "{:U('Login/forget')}";
+    })
+</script>

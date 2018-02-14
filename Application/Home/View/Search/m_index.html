@@ -1,0 +1,46 @@
+<title>查询工作状态</title>
+<include file="Common/m_header" />
+<div class="m-detail-header">
+	<button class="layui-btn">查询工作状态</button>
+</div>
+<form action="{:U('Search/result')}" method="get" class="layui-form m-search-main">
+<if condition="!$show">
+	<div class="layui-form-item">
+		<div class="layui-input-inner">
+			<input type="text" class="layui-input" placeholder="请输入您预留的手机号进行查询"  lay-verify="required|phone" name="phone"> 
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-input-inner">
+			<button class="layui-btn" lay-filter="formDemo" style="margin-left:80px;background: #02338f;">搜索</button>
+		</div>
+	</div>
+</if>
+</form>
+<div class="clear"></div>
+<if condition="$show">
+	<div class="m-search-list">
+		<p>姓名：{$res['name']}</p>
+		<p>国籍：{$res['country']}</p>
+		<p>时间：{$res['time']|date="Y-m-d H:i",###}</p>
+		<p>状态：
+			<if condition="$res['status1'] eq 0">
+		  		<!-- 未分配 -->
+		  		未分配
+		  	<else />
+		  		已分配
+		  	</if>
+		  	|
+		  	<if condition="$res['status2'] eq 0">
+		  		未派遣
+		  	<else />
+		  		已派遣
+		  	</if>
+		</p>
+	</div>
+	<p class="m-search-tip">提示：分配派遣后您将收到手机短信提醒</p>
+</if>
+
+
+<script>
+</script>

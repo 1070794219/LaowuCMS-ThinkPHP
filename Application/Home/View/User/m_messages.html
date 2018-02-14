@@ -1,0 +1,44 @@
+<title>系统信息</title>
+<include file="Common/m_header_user" />
+<table id="list" lay-filter="messages"></table>
+
+<style>
+	#m-header-user-3{
+		background: #ce6600 !important;
+	}
+</style>
+
+<script>
+  layui.use('table', function(){
+  var table = layui.table;
+  //第一个实例
+  table.render({
+    elem: '#list'
+    ,height: 400
+    ,url: "{:U('User/getMessages')}" //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'message_id', title: 'ID',  sort: true,  fixed: 'left' ,width:10}
+      ,{field: 'title', title: '标题'}
+      ,{field: 'time', title: '时间', sort: true}
+      ,{fixed:'right',title: '操作', align:'center',toolbar:'#read',width:70}
+    ]]
+  });
+
+    //监听工具条
+	table.on('tool(messages)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	 
+	  if(layEvent === 'detail'){ //查看
+	    //do somehing
+	    var id = parseInt(tr.find("td[data-field='message_id']").find("div").html());
+	    window.location.href = "{:U('User/messageDetail')}" + "?id=" + id;
+	  }
+	});
+ });
+</script>
+<script type="text/html" id="read">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+</script>

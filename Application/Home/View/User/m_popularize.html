@@ -1,0 +1,51 @@
+<title>介绍好友</title>
+<include file="Common/m_header_user" />
+<script src="__JS__/qrCode.js"></script>
+<script src="__JS__/jquery.qrcode.js"></script>
+<script src="__JS__/jquery.zclip.min.js"></script>
+<div class="m-popularize-main">
+	<div class="layui-field-box" style="font-size:16px">
+	    通过下面二维码或链接注册并被成功派遣的的每位用户您将获得{:C('reward')}元奖励！
+	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-input-inner">
+	    	<div id="qrCode"></div>
+	    </div>
+	</div>
+	<div class="layui-form-item">
+	    <div class="layui-input-inner">
+	      <span id="url">{$url}</span>
+	    </div>
+	</div>
+	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="width:70%;margin-left:15%;background:#ce6600" id="copy-btn">复制链接</button>
+</div>
+
+<style>
+	#m-header-user-1{
+		background: #ce6600 !important;
+	}
+</style>
+<script>
+	var url = $("#url").val();
+    $("#qrCode").qrcode({
+	    render: "table",
+	    width: 150,
+	    height:150,
+	    text: url
+	});
+
+$(document).ready(function(){
+	if ( window.clipboardData ) { 
+    $('#copy-btn').click(function(){
+    	window.clipboardData.setData("Text", $('#url').val()); 
+            layui.msg('复制成功！'); 
+    })
+	} else { 
+	    $("#copy-btn").zclip({ 
+	        path:'__JS__/ZeroClipboard.swf', 
+	        copy:function(){return $('#url').val();}, 
+	        afterCopy:function(){layui.msg('复制成功！');} 
+	    }); 
+	} 
+})    
+</script>
