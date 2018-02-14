@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{:C('webname')}</title>
+  <link rel="stylesheet" href="__CSS__/owl.carousel.css">
+  <link rel="stylesheet" href="__CSS__/owl.theme.css">
 </head>
 <body style="background-color: #eee;">
   <include file="Common/header" />
@@ -26,29 +28,66 @@
 </i>  
 最新公告</p>
     <ul class="site-idea">
-      <li>
+      <li class="index-about">
         <fieldset class="layui-elem-field layui-field-title">
-          <legend>返璞归真</legend>
-          <p>身处在前端社区的繁荣之下，我们都在有意或无意地追逐。而 layui 偏偏回望当初，奔赴在返璞归真的漫漫征途，自信并勇敢着，追寻于原生态的书写指令，试图以最简单的方式诠释高效。</p>
+          <legend>关于我们</legend>
+          <img src="{:C('about_img')}" alt="">
+          <p>{:C('about_body')}</p>
         </fieldset>
       </li>
-      <li>
+      <li class="index-news">
         <fieldset class="layui-elem-field layui-field-title">
-          <legend>双面体验</legend>
-          <p>拥有双面的不仅是人生，还有 layui。一面极简，一面丰盈。极简是视觉所见的外在，是开发所念的简易。丰盈是倾情雕琢的内在，是信手拈来的承诺。一切本应如此，简而全，双重体验。</p>
+          <legend>最新资讯</legend>
+            <volist name="arclist" id="arc">
+              <p><a href="{:U('Article/detail',array('id'=>$arc['id']))}">* {$arc['title']}</a><span>{$arc['time']|date='Y-m-d',###}</span></p>
+            </volist>
         </fieldset>
       </li>
-      <li>
+      <li class="index-contact">
         <fieldset class="layui-elem-field layui-field-title">
-          <legend>星辰大海</legend>
-          <p>如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回<!--海天相接-->，正是 layui 不灭的执念。</p>
+          <legend>联系我们</legend>
+          <p>地址: {:C('contact_address')}</p>
+          <p>电话: {:C('contact_phone')}</p>
+          <p><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:C('contact_qq')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:C('contact_qq')}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
         </fieldset>
+      </li>
+      <li class="index-shows">
+        <fieldset class="layui-elem-field layui-field-title">
+          <legend>合作公司办公环境一览</legend>
+              <div id="owl-demo" class="owl-carousel">
+                  <a class="item"><img src="__IMG__/owl1.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl2.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl3.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl4.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl5.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl6.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl7.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl8.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl1.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl2.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl3.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl4.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl5.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl6.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl7.jpg" alt=""></a>
+                  <a class="item"><img src="__IMG__/owl8.jpg" alt=""></a>
+              </div>
+    </fieldset>
       </li>
     </ul>
+
+
   </div>
 
   <!-- 底部 -->
   <include file="Common/footer" />
 </body>
-
+<script src="__JS__/owl.carousel.js"></script>
+<script>
+  $(function(){
+    $('#owl-demo').owlCarousel({
+      autoPlay: 2000,
+    });
+});
+</script>
 </html>

@@ -29,6 +29,7 @@ class ArticleController extends CommonController{
 		}
 	}
 
+	//文章详情
 	public function detail(){
 		$id = (int)I('get.id');
 		if (empty($id)) {
@@ -40,6 +41,18 @@ class ArticleController extends CommonController{
 		}
 		$this->assign("arc",$query);
 		$this->display();
+	}
+	
+	//修改  点击栏目时直接跳转到最新的文章
+	public function lastArticle(){
+		$type = (int)I('get.type');
+		if ($type == 1 || $type == 0) {
+			$query = M("Article")->where('type = ' . $type)->order("time desc")->find();
+			$this->assign("arc",$query);
+			$this->display('detail');
+		}else{
+			$this->error("非法请求");
+		}
 	}
 }
 ?>

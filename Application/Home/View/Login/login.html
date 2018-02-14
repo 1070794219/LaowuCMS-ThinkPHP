@@ -32,6 +32,11 @@
                 <button class="layui-btn layui-btn-danger" id="register">没有账号? 点击注册</button>
             </div>
         </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-primary layui-btn-radius" id="forget">忘记密码?</button>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -40,5 +45,8 @@
     });
     $('#register').click(function(){
       window.location.href = "{:U('Login/register')}";
+    })
+    $('#forget').click(function(){
+      window.location.href = "{:U('Login/forget')}";
     })
 </script>

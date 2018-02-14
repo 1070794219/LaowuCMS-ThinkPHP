@@ -27,6 +27,22 @@ class CommonController extends Controller{
 			$this->username = "";
 		}
 	}
+
+	//重构display方法，实现手机版跳转
+	public function display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '')
+    {
+ 
+        $template = ($templateFile ? $templateFile : ucfirst(CONTROLLER_NAME) . '/' . ACTION_NAME);
+        if(isMobile())
+        {
+            $template = ucfirst(CONTROLLER_NAME) . '/' . "m_" . ACTION_NAME;
+        }
+        try{
+            parent::display($template, $charset, $contentType, $content, $prefix);
+        }catch(\Exception $e) {
+            header('HTTP/1.1 404 Not Found');
+        }
+    }
 }
 
 ?>

@@ -42,7 +42,10 @@ class LoginController extends CommonController{
 				if (!empty($from_id)) {
 					$this->addFans($from_id);
 				}
-				$this->success("注册成功");
+				//登录成功
+				session('id',$id);
+				session('username',$user['username']);
+				$this->success("注册成功",U('Index/index'));
 			}else{
 				$this->error("注册失败");
 			}
@@ -202,6 +205,57 @@ class LoginController extends CommonController{
 
 		$res = sendMessage($phone,$code,$type);
 		ajaxReturn($res);
+	}
+
+
+	//忘记密码
+	public function forget(){
+		$this->display();
+	}
+
+	public function forgetFunc(){
+		$post = I('post.');
+		//首先验证验证码是否有效
+		$verify = (int)$post['verify'];
+		$send_verify = M('Verify')->where("phone = {$post['username']} and type = 4")->order('time desc')->find();
+		if (!$send_verify || $verify != (int)$send_verify['verify'] || time() - (int)$send_verify['time'] > 300) {
+			$this->error("验证码无效");
+		}
+
+		//登录成功
+		$user = M('User')->where('username = ' . $post['username'])->find();
+		if ($user) {
+			session('id',$user['id']);
+			session('username',$user['username']);
+			$this->success("登录成功,请尽快修改密码",U('User/index'));
+		}else{
+			$this->error("账号不存在");
+		}
+	} 
+
+	//忘记密码验证码
+	public function sendForgetMessage(){
+		$post = I('post.');
+		$phone = trim($post['phone']);
+		$type = (int)$post['type'];
+		//随机生成验证码
+		$code = rand(1000,10000);
+
+		//判断是否注册
+		if (M('User')->where("username = {$phone}")->find()) {
+					//判断是否已经发送验证码
+			$time = time();
+			$send_time = (int)(M('Verify')->where("phone = {$phone} and type = {$type}")->order('time desc')->getField('time'));
+			if (!empty($send_time)) {
+				if ($time - $send_time < 60) {
+					ajaxReturn("请一分钟之后再重新发送");
+				}
+			}
+			$res = sendMessage($phone,$code,$type);
+			ajaxReturn($res);
+		}else{
+			ajaxReturn("账号不存在");
+		}
 	}
 }
 ?>

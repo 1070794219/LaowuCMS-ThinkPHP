@@ -27,7 +27,7 @@
       ,{field: 'wechat', title: '微信', width:150}
       ,{field: 'status', title: '状态', width:80}
       ,{field: 'time', title: '时间', width:120, sort: true,}
-      ,{fixed:'right',title: '操作', width:80,align:'center',toolbar:'#userTool'}
+      ,{fixed:'right',title: '操作', width:120,align:'center',toolbar:'#userTool'}
     ]]
   });
 
@@ -40,7 +40,9 @@
 	 
 	  if(layEvent === 'dispatch'){ //拉黑
 	    window.location.href = "{:U('Admin/UserManager/dispatchFunc')}" + "?id=" + id;
-	  }
+	  }else if(layEvent === 'change'){ //分配
+      window.location.href = "{:U('Admin/UserManager/allotUser')}" + "?id=" + id;
+    }
 	});
  });
 
@@ -48,4 +50,5 @@
 
 <script type="text/html" id="userTool">
   <a class="layui-btn layui-btn-xs" lay-event="dispatch">派遣</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="change">修改</a>
 </script>

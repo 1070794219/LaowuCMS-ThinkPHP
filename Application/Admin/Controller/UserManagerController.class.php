@@ -105,7 +105,7 @@ class UserManagerController extends CommonController{
         //发送短信
         $webhost = C('webhost');
         $user = M('SignJob')->where('user_id = ' . $user_id)->find();
-        $message = "【扬帆国际劳务派遣】{$user['name']}，您的工作已分配，请登录扬帆国际劳务派遣查看，网址{$webhost}";
+        $message = "【扬帆国际劳务派遣】{$user['name']}，您的工作已分配，请登录扬帆国际劳务派遣查看。";
         $res = sendNormalMessage($user['phone'],$message);
     	$this->success("分配成功\n" . $res);
     }
@@ -129,7 +129,7 @@ class UserManagerController extends CommonController{
         $query['count'] = (int)(M('SignJob')->count());
         $query['data'] = M('SignJob')->order('id desc')->limit(($page-1)*$limit,$page*$limit)->select();
         foreach($query['data'] as &$one){
-            $one['company'] = M('Company')->where('id = ' . $one['country_id'])->getField('name');
+            $one['company'] = M('Company')->where('id = ' . $one['company_id'])->getField('name');
             $one['sex'] = ($one['sex'] == 0 ? "女" : "男");
             $one['status'] = ((int)$one['status2'] == 0 ? '<span class="layui-badge layui-bg-orange">未派遣</span>' : '<span class="layui-badge layui-bg-cyan">已派遣</span>');
             $one['time'] = date('Y-m-d',$one['time']);
@@ -151,6 +151,69 @@ class UserManagerController extends CommonController{
         }else{
             $this->error("派遣失败");
         }
+    }
+
+    //全部用户管理
+    public function users(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+        $this->display();
+    }
+
+    public function getUsers(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $page = (int)I('get.page');
+        $limit = (int)I('get.limit');
+
+        $query['code'] = 0;
+        $query['msg'] = "";
+        $query['count'] = (int)(M('User')->count());
+        $query['data'] = M('User')->order('id asc')->limit(($page-1)*$limit,$page*$limit)->select();
+        foreach($query['data'] as &$one){
+            $one['sex'] = ($one['sex'] == 0 ? "女" : "男");
+            $one['status'] = ((int)$one['status1'] == 0 ? '<span class="layui-badge layui-bg-orange">未分配</span>' : '<span class="layui-badge layui-bg-cyan">已分配</span>');
+            $one['time'] = date('Y-m-d',$one['time']);
+        }
+        echo json_encode($query);
+    }
+
+    public function userInfo(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $id = (int)I('get.id');
+        $this->assign('user',M('User')->where('id = ' . $id)->find());
+        $this->display();
+    }
+
+    //删除用户
+    public function deleteUser(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $user_id = (int)I('get.id');
+        if (empty($user_id)) {
+            $this->error("非法请求");
+        }
+
+        $query = M('User')->where('id = ' . $user_id)->delete();
+        //删除用户之后 也要删除登记信息
+        $query = M('SignJob')->where('user_id = ' . $user_id)->delete();
+        if ($query) {
+            $this->success("删除成功");
+        }else{
+            $this->error("删除失败");
+        }       
     }
 }
 
