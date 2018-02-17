@@ -4,9 +4,6 @@
   <script src="__LAY__/layui.js"></script>
   <script src="__JS__/index.js"></script>
 
-  <!-- 兼容ie9 -->
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>  
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>  
   <div class="layui-header header">
      <div class="layui-main">
       <a class="logo" href="/">
@@ -50,4 +47,19 @@
   $('#u_register').click(function(){
     window.location.href = "{:U('Login/register')}";
   })
+</script>
+
+<script>
+  //浏览器判断
+  /* 检查ie浏览器版本 */
+(function() {
+  var o = navigator.userAgent.match(/MSIE (\d+)/);
+  o = o && o[1];
+  console.log('o', o);
+  // ie9 以下 || o != null
+  if (!!o && o < 11) {
+    // 更新页面
+    alert("您的浏览器版本过低,请使用IE11以上或其他极速浏览器访问");
+  }
+})();
 </script>
