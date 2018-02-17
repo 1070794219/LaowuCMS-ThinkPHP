@@ -11,7 +11,7 @@
 
   <!-- 轮播图 -->
   <div class="layui-carousel" id="lantern">
-    <div carousel-item="">
+    <div carousel-item>
       <div><img src="//res.layui.com/images/layui/demo/1.png"></div>
       <div><img src="//res.layui.com/images/layui/demo/2.png"></div>
       <div><img src="//res.layui.com/images/layui/demo/3.png"></div>
@@ -24,9 +24,9 @@
 
   <!-- 文章 -->
   <div class="layui-main index-main">
-    <p class="index-tip"><i class="layui-icon" style="font-size: 25px; color: #FF5722">&#xe756;
+<!--     <p class="index-tip"><i class="layui-icon" style="font-size: 25px; color: #FF5722">&#xe756;
 </i>  
-最新公告</p>
+最新公告</p> -->
     <ul class="site-idea">
       <li class="index-about">
         <fieldset class="layui-elem-field layui-field-title">
@@ -39,7 +39,7 @@
         <fieldset class="layui-elem-field layui-field-title">
           <legend>最新资讯</legend>
             <volist name="arclist" id="arc">
-              <p><a href="{:U('Article/detail',array('id'=>$arc['id']))}">* {$arc['title']}</a><span>{$arc['time']|date='Y-m-d',###}</span></p>
+              <p><a href="{:U('Article/detail',array('id'=>$arc['id']))}" style="width:295px;overflow:hidden">* {$arc['title']}</a><span>{$arc['time']|date='Y-m-d',###}</span></p>
             </volist>
         </fieldset>
       </li>
@@ -88,6 +88,18 @@
     $('#owl-demo').owlCarousel({
       autoPlay: 2000,
     });
+});
+</script>
+<script>
+layui.use('carousel', function(){
+  var carousel = layui.carousel;
+  //建造实例
+  carousel.render({
+    elem: '#lantern'
+    ,width: '100%' //设置容器宽度
+    ,height: '250px'
+    //,anim: 'updown' //切换动画方式
+  });
 });
 </script>
 </html>

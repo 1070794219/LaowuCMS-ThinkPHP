@@ -33,6 +33,7 @@
 <script>
 	var url = $("input[name='myurl']").val();
     $("#qrCode").qrcode({
+    	correctLevel:0,
 	    render: "table",
 	    width: 350,
 	    height:350,

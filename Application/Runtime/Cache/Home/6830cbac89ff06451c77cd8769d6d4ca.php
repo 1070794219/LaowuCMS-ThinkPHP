@@ -15,8 +15,8 @@
         <li class="layui-nav-item"><a href="<?php echo U('Index/index');?>">首页</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('SignJob/index');?>">登记找工作</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Search/index');?>">查询工作状态</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 1));?>">联系我们</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 0));?>">关于我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/lastArticle',array('type' => 1));?>">联系我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/lastArticle',array('type' => 0));?>">关于我们</a></li>
       </ul>
       <?php if($isLogin): ?><ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item">
@@ -31,7 +31,9 @@
         </ul>
       <?php else: ?>
         <ul class="layui-nav layui-layout-right">
-          <li class="layui-nav-item" id="u_login">登录/注册</li>
+          <li class="layui-nav-item" id="u_login">登录</li>
+          <li class="layui-nav-item"><span>&nbsp;|&nbsp;</span></li>
+          <li class="layui-nav-item" id="u_register">注册</li>
         </ul><?php endif; ?>
      </div>
   </div>
@@ -39,6 +41,9 @@
 <script>
   $('#u_login').click(function(){
     window.location.href = "<?php echo U('Login/index');?>";
+  })
+  $('#u_register').click(function(){
+    window.location.href = "<?php echo U('Login/register');?>";
   })
 </script>
 <body class="layui-layout-body">

@@ -1,7 +1,10 @@
 .header{height: 59px; border-bottom: 1px solid #404553;  background-color: #393D49;}
 .logo{position: absolute; left: 0; top: 16px;}
-.logo img{width: 82px; height: 31px;}
+.logo img{width: 150px; height: auto;}
 
+#lantern{
+	height: 250px !important;
+}
 #lantern img{
 	width: 100%;
 }

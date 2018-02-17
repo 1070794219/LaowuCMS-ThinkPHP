@@ -9,7 +9,7 @@
 	</div>
   	<div class="layui-form-item">
 	    <div class="layui-input-inner">
-	    	<div id="qrCode"></div>
+	    	<div id="qrCode" style="border:solid 10px #fff"></div>
 	    </div>
 	</div>
 	<div class="layui-form-item">
@@ -17,7 +17,7 @@
 	      <span id="url">{$url}</span>
 	    </div>
 	</div>
-	<button class="layui-btn" lay-submit="" lay-filter="demo2" style="width:70%;margin-left:15%;background:#ce6600" id="copy-btn">复制链接</button>
+	<button class="layui-btn layui-btn-disabled" lay-submit="" lay-filter="demo2" style="width:70%;margin-left:15%;background:#ce6600" id="copy-btn">浏览器不支持，请手动复制</button>
 </div>
 
 <style>
@@ -25,13 +25,15 @@
 		background: #ce6600 !important;
 	}
 </style>
-<script>
-	var url = $("#url").val();
+<script> 
+	var url = "{$murl}";
     $("#qrCode").qrcode({
-	    render: "table",
+    	correctLevel:0,
+	    // render: "canvas",
 	    width: 150,
 	    height:150,
-	    text: url
+	    // text: url
+	    text:url
 	});
 
 $(document).ready(function(){

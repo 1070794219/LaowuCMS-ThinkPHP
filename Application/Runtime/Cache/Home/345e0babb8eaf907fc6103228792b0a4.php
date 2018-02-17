@@ -1,5 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit();?><!-- 登录 -->
-<title>登录/注册</title>
+<?php if (!defined('THINK_PATH')) exit();?><!-- 忘记密码 -->
+<title>忘记密码</title>
   <link rel="stylesheet" href="/Public/layui/css/layui.css">
   <link rel="stylesheet" href="/Public/css/index.css">
   <script src="/Public/js/jquery.js"></script>
@@ -50,7 +50,7 @@
 
 <div class="layui-main">
     <div class="login-main">
-        <form class="layui-form" action="<?php echo U('Login/login');?>" method="post">
+        <form class="layui-form" action="<?php echo U('Login/forgetFunc');?>" method="post">
           <div class="layui-form-item">
             <label class="layui-form-label">手机号</label>
             <div class="layui-input-block">
@@ -58,41 +58,47 @@
             </div>
           </div>
           <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-              <input type="password" name="password" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            <div class="layui-inline">
+              <label class="layui-form-label">验证码</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="verify" lay-verify="required|number" autocomplete="off" class="layui-input">
+              </div>
+              <a href="#" class="layui-btn" id="send_verify">发送</a>
             </div>
           </div>
-
 
           <div class="layui-form-item">
             <div class="layui-input-block">
-              <button class="layui-btn" lay-submit="" lay-filter="demo1">登录</button>
-              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+              <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
             </div>
           </div>
-
         </form>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-danger" id="register">没有账号? 点击注册</button>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-primary layui-btn-radius" id="forget">忘记密码?</button>
-            </div>
-        </div>
     </div>
 </div>
 <script type="text/javascript">
     layui.use(['form'], function () {
-        var form = layui.form(), $ = layui.jquery;
+        var form = layui.form, $ = layui.jquery;
     });
-    $('#register').click(function(){
-      window.location.href = "<?php echo U('Login/register');?>";
-    })
-    $('#forget').click(function(){
-      window.location.href = "<?php echo U('Login/forget');?>";
+
+    $('#send_verify').click(function(){
+      var phone = $("input[name='username']").val();
+
+      var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;       
+      if(phone == ''){
+        layer.msg("手机号码不能为空！");
+        return false;
+      }else if(phone.length !=11){
+        layer.msg("请输入有效的手机号码！");
+        return false;
+      }else if(!myreg.test(phone)){
+        layer.msg("请输入有效的手机号码！");
+        return false;
+      }
+
+      //忘记密码
+      var type = 4;
+      $.post("<?php echo U('Login/sendForgetMessage');?>",{phone:phone,type:type},function(res){
+        layer.msg(res.message);
+      })
     })
 </script>

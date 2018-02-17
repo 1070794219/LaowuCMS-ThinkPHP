@@ -72,5 +72,24 @@
       $.post("{:U('Login/sendMessage')}",{phone:phone,type:type},function(res){
         layer.msg(res.message);
       })
+      //倒计时
+      settime($(this));
     })
+    var countdown=60; 
+    function settime(obj) { //发送验证码倒计时
+          if (countdown == 0) { 
+              obj.removeClass("layui-btn-disabled"); 
+              //obj.removeattr("disabled"); 
+              obj.html("发送");
+              countdown = 60; 
+              return;
+          } else { 
+              obj.addClass("layui-btn-disabled"); 
+              obj.html("(" + countdown + ")");
+              countdown--; 
+          } 
+      setTimeout(function() { 
+          settime(obj) }
+          ,1000) 
+      }
 </script>

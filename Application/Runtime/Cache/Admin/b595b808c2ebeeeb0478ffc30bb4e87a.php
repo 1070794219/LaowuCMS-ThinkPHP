@@ -40,7 +40,7 @@
         </li>
         <li class="layui-nav-item"><a href="<?php echo U('Admin/Message/index');?>" target="main_iframe">系统消息</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Admin/FundsManager/index');?>" target="main_iframe">提现管理</a></li>
-
+        <li class="layui-nav-item"><a href="<?php echo U('Admin/UserManager/users');?>" target="main_iframe">用户管理</a></li>
 <!--         <li class="layui-nav-item"><a href="<?php echo U('Admin/Settings/index');?>" target="main_iframe">系统设置</a></li>
 
  -->      </ul>

@@ -67,6 +67,10 @@ class ArticleController extends CommonController{
 	}
 
 	public function addFunc(){
+		if (!$this->is_login) {
+    		//未登录
+    		$this->error("请登录",U('Admin/Login/index'));
+    	}
 		$post = I('post.');
 		$data = array(
 				'title' => trim($post['title']),
@@ -80,6 +84,34 @@ class ArticleController extends CommonController{
 		}else{
 			$this->error("添加失败");
 		}
+	}
+
+	//修改文章
+	public function change(){
+		if (!$this->is_login) {
+    		//未登录
+    		$this->error("请登录",U('Admin/Login/index'));
+    	}
+		$id = (int)I('get.id');
+		$this->assign('arc',M('Article')->where('id = ' . $id)->find());
+		$this->display();
+	}
+
+	public function changeFunc(){
+		if (!$this->is_login) {
+    		//未登录
+    		$this->error("请登录",U('Admin/Login/index'));
+    	}
+		$post = I('post.');
+		$id = (int)$post['id'];
+		$data = array(
+				'title' => trim($post['title']),
+				'body' => trim($post['body']),
+				'time' => time(),
+				'type' => (int)$post['type']
+			);
+		M('Article')->where('id = ' . $id)->save($data);
+		$this->success("修改成功");
 	}
 }
 

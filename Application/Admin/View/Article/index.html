@@ -25,7 +25,7 @@
       {field: 'id', title: '信息ID',  sort: true, width:100, fixed: 'left'}
       ,{field: 'title', title: '信息标题'}
       ,{field: 'time', title: '时间', width:120, sort: true}
-      ,{fixed:'right',title: '操作', width:120,align:'center',toolbar:'#bar'}
+      ,{fixed:'right',title: '操作', width:150,align:'center',toolbar:'#bar'}
     ]]
   });
 
@@ -41,12 +41,15 @@
 	    window.location.href = "{:U('Admin/Article/detail')}" + "?id=" + id;
 	  }else if(layEvent === 'delete'){
       window.location.href = "{:U('Admin/Article/delete')}" + "?id=" + id;
+    }else if(layEvent === 'change'){
+      window.location.href = "{:U('Admin/Article/change')}" + "?id=" + id;
     }
 	});
  });
 </script>
 <script type="text/html" id="bar">
   <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="change">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
 </script>
 

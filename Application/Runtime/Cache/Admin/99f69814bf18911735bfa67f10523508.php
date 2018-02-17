@@ -16,13 +16,12 @@
   table.render({
     elem: '#list'
     ,height: 500
-    ,url: "<?php echo U('Admin/UserManager/getUserManager');?>" //数据接口
+    ,url: "<?php echo U('Admin/UserManager/getUsers');?>" //数据接口
     ,page: true //开启分页
     ,cols: [[ //表头
-      {field: 'user_id', title: 'ID',  sort: true, width:50, fixed: 'left'}
-      ,{field: 'name', title: '姓名',width:100,}
-      ,{field: 'phone', title: '电话', width:150}
-      ,{field: 'country', title: '国籍', width:120}
+      {field: 'id', title: 'ID',  sort: true, width:50, fixed: 'left'}
+      ,{field: 'nickname', title: '姓名'}
+      ,{field: 'username', title: '电话', width:150}
       ,{field: 'sex', title: '性别', width:120}
       ,{field: 'wechat', title: '微信', width:150}
       ,{field: 'status', title: '状态', width:80}
@@ -36,14 +35,14 @@
 	  var data = obj.data; //获得当前行数据
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
-	  var id = parseInt(tr.find("td[data-field='user_id']").find("div").html());
+	  var id = parseInt(tr.find("td[data-field='id']").find("div").html());
 	 
 	  if(layEvent === 'block'){ //拉黑
 	    window.location.href = "<?php echo U('Admin/UserManager/blockUser');?>" + "?id=" + id;
-	  }else if(layEvent === 'allot'){ //分配
-	  	window.location.href = "<?php echo U('Admin/UserManager/allotUser');?>" + "?id=" + id;
+	  }else if(layEvent === 'show'){ //分配
+	  	window.location.href = "<?php echo U('Admin/UserManager/userInfo');?>" + "?id=" + id;
 	  }else if(layEvent === 'del'){ //删除
-	  	window.location.href = "<?php echo U('Admin/UserManager/deleteUser');?>" + "?id=" + id;
+	  	window.location.href = "<?php echo U('Admin/UserManager/deleteJob');?>" + "?id=" + id;
 	  }
 	});
  });
@@ -52,7 +51,7 @@
 
 <script type="text/html" id="userTool">
   <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="block">拉黑</a>
-  <a class="layui-btn layui-btn-xs" lay-event="allot">分配</a>
+  <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
 </script>

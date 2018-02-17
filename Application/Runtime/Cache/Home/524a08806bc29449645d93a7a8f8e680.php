@@ -16,8 +16,8 @@
         <li class="layui-nav-item"><a href="<?php echo U('Index/index');?>">首页</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('SignJob/index');?>">登记找工作</a></li>
         <li class="layui-nav-item"><a href="<?php echo U('Search/index');?>">查询工作状态</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 1));?>">联系我们</a></li>
-        <li class="layui-nav-item"><a href="<?php echo U('Article/index',array('type' => 0));?>">关于我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/lastArticle',array('type' => 1));?>">联系我们</a></li>
+        <li class="layui-nav-item"><a href="<?php echo U('Article/lastArticle',array('type' => 0));?>">关于我们</a></li>
       </ul>
       <?php if($isLogin): ?><ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item">
@@ -32,7 +32,9 @@
         </ul>
       <?php else: ?>
         <ul class="layui-nav layui-layout-right">
-          <li class="layui-nav-item" id="u_login">登录/注册</li>
+          <li class="layui-nav-item" id="u_login">登录</li>
+          <li class="layui-nav-item"><span>&nbsp;|&nbsp;</span></li>
+          <li class="layui-nav-item" id="u_register">注册</li>
         </ul><?php endif; ?>
      </div>
   </div>
@@ -40,6 +42,9 @@
 <script>
   $('#u_login').click(function(){
     window.location.href = "<?php echo U('Login/index');?>";
+  })
+  $('#u_register').click(function(){
+    window.location.href = "<?php echo U('Login/register');?>";
   })
 </script>
 
@@ -113,5 +118,24 @@
       $.post("<?php echo U('Login/sendMessage');?>",{phone:phone,type:type},function(res){
         layer.msg(res.message);
       })
+      //倒计时
+      settime($(this));
     })
+    var countdown=60; 
+    function settime(obj) { //发送验证码倒计时
+          if (countdown == 0) { 
+              obj.removeClass("layui-btn-disabled"); 
+              //obj.removeattr("disabled"); 
+              obj.html("发送");
+              countdown = 60; 
+              return;
+          } else { 
+              obj.addClass("layui-btn-disabled"); 
+              obj.html("(" + countdown + ")");
+              countdown--; 
+          } 
+      setTimeout(function() { 
+          settime(obj) }
+          ,1000) 
+      }
 </script>

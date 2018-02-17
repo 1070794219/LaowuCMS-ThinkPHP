@@ -1,6 +1,19 @@
-<title>注册</title>
-<include file="Common/m_header" />
-<form action="{:U('Login/addUser')}" class="layui-form m-register-main" method="post">
+<?php if (!defined('THINK_PATH')) exit();?><title>注册</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">     
+<meta content="yes" name="apple-mobile-web-app-capable">     
+<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+<meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="/Public/layui/css/layui.css">
+<link rel="stylesheet" href="/Public/css/index_m.css">
+<script src="/Public/js/jquery.js"></script>
+<script src="/Public/layui/layui.js"></script>
+<script src="/Public/js/index.js"></script>
+<div class="m-header">
+	<div class="m-header-logo">
+		<img src="/Public/images/logo-m.png" alt="">
+	</div>
+</div>
+<form action="<?php echo U('Login/addUser');?>" class="layui-form m-register-main" method="post">
    <div class="layui-form-item">
     <label class="layui-form-label">手机号</label>
     <div class="layui-input-block">
@@ -32,7 +45,7 @@
     	<span>已有帐号,点击登录</span>
     </div>
   </div>
-  <input type="hidden" name="f" value="{:I('get.f')}">
+  <input type="hidden" name="f" value="<?php echo I('get.f');?>">
 </form>
 
 <script type="text/javascript">
@@ -41,7 +54,7 @@
     });
 
     $('#login').click(function(){
-      window.location.href = "{:U('Login/index')}";
+      window.location.href = "<?php echo U('Login/index');?>";
     })
 
     $('#send_verify').click(function(){
@@ -61,7 +74,7 @@
 
       //注册
       var type = 0;
-      $.post("{:U('Login/sendMessage')}",{phone:phone,type:type},function(res){
+      $.post("<?php echo U('Login/sendMessage');?>",{phone:phone,type:type},function(res){
         layer.msg(res.message);
       })
       settime($(this));
@@ -86,6 +99,6 @@
       }
 
     $(".change").click(function(){
-    	window.location.href = "{:U('Login/index')}"
+    	window.location.href = "<?php echo U('Login/index');?>"
     })
 </script>

@@ -32,7 +32,19 @@ class UserController extends CommonController{
 		$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
 		$url = $http_type . $_SERVER['HTTP_HOST'] . U('Login/register');
 		$url .= "?f=" . $this->user_id;
+		$apiurl = "http://www.suo.im/api.php?format=json&url=" . urlencode($url);
+		$ch = curl_init();
+	    curl_setopt($ch, CURLOPT_URL, $apiurl);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FASLE);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    $output = curl_exec($ch);
+	    $error = curl_error($ch);
+	    curl_close($ch);
+	    $resultArr = json_decode($output, true);//将json转为数组格式数据
+
 		$this->assign('url',$url);
+		$this->assign('murl',$resultArr["url"]);
 		$this->display();
 	}
 
