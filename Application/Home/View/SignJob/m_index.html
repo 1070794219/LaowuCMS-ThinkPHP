@@ -2,6 +2,9 @@
 <include file="Common/m_header" />
 <div class="m-detail-header">
 	<button class="layui-btn">登记找工作</button>
+	<div  style="margin-bottom:10px;margin-top:5px">
+		<button class="layui-btn" id="return_index">返回首页</button>
+	</div>
 </div>
 	<form action="{:U('SignJob/addRecord')}" class="layui-form m-sign-main" method="post">
 		<div class="layui-form-item">
@@ -50,4 +53,13 @@
     layui.use(['form'], function () {
         var form = layui.form(), $ = layui.jquery;
     });
+</script>
+<script>
+	$("#user_center").click(function(){
+		window.location.href = "{:U('User/myInfo')}";
+	})	
+
+	$("#return_index").click(function(){
+		window.location.href = "{:U('Index/index')}";
+	})
 </script>

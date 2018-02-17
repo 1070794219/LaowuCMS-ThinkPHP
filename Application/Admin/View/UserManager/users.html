@@ -22,11 +22,11 @@
       {field: 'id', title: 'ID',  sort: true, width:50, fixed: 'left'}
       ,{field: 'nickname', title: '姓名'}
       ,{field: 'username', title: '电话', width:150}
-      ,{field: 'sex', title: '性别', width:120}
+      ,{field: 'sex', title: '性别', width:60}
       ,{field: 'wechat', title: '微信', width:150}
       ,{field: 'status', title: '状态', width:80}
       ,{field: 'time', title: '时间', width:120, sort: true,}
-      ,{fixed:'right',title: '操作', width:180,align:'center',toolbar:'#userTool'}
+      ,{fixed:'right',title: '操作',align:'center',toolbar:'#userTool'}
     ]]
   });
 
@@ -43,7 +43,9 @@
 	  	window.location.href = "{:U('Admin/UserManager/userInfo')}" + "?id=" + id;
 	  }else if(layEvent === 'del'){ //删除
 	  	window.location.href = "{:U('Admin/UserManager/deleteUser')}" + "?id=" + id;
-	  }
+	  }else if(layEvent === 'allot'){ //分配
+      window.location.href = "{:U('Admin/UserManager/allotUser')}" + "?id=" + id;
+    }
 	});
  });
 
@@ -52,6 +54,7 @@
 <script type="text/html" id="userTool">
   <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="block">拉黑</a>
   <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="allot">分配</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
 </script>

@@ -30,7 +30,7 @@ class LoginController extends CommonController{
 		$user = array(
 				'username' => $post['username'],
 				'password' => md5($post['password']),
-				'nickname' => "用户" . $post['username'],
+				'nickname' => $post['username'],
 				'fans' => 0,
 				'status' => 0,
 				'from_user_id' => $from_id
@@ -45,6 +45,9 @@ class LoginController extends CommonController{
 				);
 			$query = M('UserFunds')->add($funds);
 			if ($query) {
+				//注册后直接发送短信
+				$message = "感谢您注册扬帆国际劳务派遣！您可以在线登记找工作，平台会马上为您匹配！";
+				sendNormalMessage($user['username'],$message);
 				//登录成功
 				session('id',$id);
 				session('username',$user['username']);
@@ -195,7 +198,7 @@ class LoginController extends CommonController{
 
 		//判断是否注册
 		if (M('User')->where("username = {$phone}")->find()) {
-			ajaxReturn("该手机号已被注册");
+			ajaxReturn("该手机号已被注册",0);
 		}
 		//判断是否已经发送验证码
 		$time = time();
@@ -207,7 +210,7 @@ class LoginController extends CommonController{
 		}
 
 		$res = sendMessage($phone,$code,$type);
-		ajaxReturn($res);
+		ajaxReturn($res,1);
 	}
 
 

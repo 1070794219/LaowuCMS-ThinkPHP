@@ -52,6 +52,7 @@
       window.location.href = "{:U('Login/index')}";
     })
 
+    var countdown=60;
     $('#send_verify').click(function(){
       var phone = $("input[name='username']").val();
 
@@ -70,12 +71,18 @@
       //注册
       var type = 0;
       $.post("{:U('Login/sendMessage')}",{phone:phone,type:type},function(res){
-        layer.msg(res.message);
+        if (res.code == 0) {
+          layer.msg(res.message,function(){
+            window.location.reload();
+          });
+        }else{
+          layer.msg(res.message);
+        }
+        //倒计时
+          settime($(this));
       })
-      //倒计时
-      settime($(this));
-    })
-    var countdown=60; 
+    
+    }) 
     function settime(obj) { //发送验证码倒计时
           if (countdown == 0) { 
               obj.removeClass("layui-btn-disabled"); 

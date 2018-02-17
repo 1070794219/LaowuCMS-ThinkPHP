@@ -6,7 +6,19 @@ $type = ((int)I('get.type') == 0 ? "关于我们" : "联系我们");
 </php>
 <div class="m-detail-header">
 	<button class="layui-btn">{$type}</button>
+	<div  style="margin-bottom:10px;margin-top:5px">
+		<button class="layui-btn" id="return_index">返回首页</button>
+	</div>
 </div>
 <div class="layui-field-box m-detail-body">
 {$arc['body']}
 </div>
+<script>
+	$("#user_center").click(function(){
+		window.location.href = "{:U('User/myInfo')}";
+	})	
+
+	$("#return_index").click(function(){
+		window.location.href = "{:U('Index/index')}";
+	})
+</script>
