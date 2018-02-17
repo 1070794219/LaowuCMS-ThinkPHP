@@ -33,7 +33,8 @@ class LoginController extends CommonController{
 				'nickname' => $post['username'],
 				'fans' => 0,
 				'status' => 0,
-				'from_user_id' => $from_id
+				'from_user_id' => $from_id,
+				'time' => time(),
 			);
 		$query = M('User')->add($user);
 		if ($query) {
