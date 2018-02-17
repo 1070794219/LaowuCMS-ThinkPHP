@@ -207,9 +207,9 @@ class UserManagerController extends CommonController{
         }
 
         $query = M('User')->where('id = ' . $user_id)->delete();
-        //删除用户之后 也要删除登记信息
-        $query = M('SignJob')->where('user_id = ' . $user_id)->delete();
         if ($query) {
+            //删除用户之后 也要删除登记信息
+            M('SignJob')->where('user_id = ' . $user_id)->delete();
             $this->success("删除成功");
         }else{
             $this->error("删除失败");
