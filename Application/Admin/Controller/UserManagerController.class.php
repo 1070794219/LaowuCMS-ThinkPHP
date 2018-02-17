@@ -147,6 +147,22 @@ class UserManagerController extends CommonController{
         M('User')->where('id = ' . $id)->setField('status2',1);
         $query = M('SignJob')->where("user_id = {$id}")->setField('status2',1);
         if ($query) {
+            //成功派遣后成为有效推广用户
+            $from_id = (int)(M('User')->where('id = ' . $id)->getField('from_user_id'));
+            $true_fans = (int)(M('User')->where('id = ' . $from_id)->getField('true_fans'));
+            $true_fans++;
+            M('User')->where('id = ' . $from_id)->setField('true_fans',$true_fans);
+
+            //增加金额
+            $funds = (float)(M('UserFunds')->where('user_id = ' . $from_id)->getField('funds'));
+            $funds += C('reward');
+            M('UserFunds')->where('user_id = ' . $from_id)->setField('funds',$funds);
+
+            //增加推广展示金额
+            $funds = (float)(M('UserFunds')->where('user_id = ' . $from_id)->getField('all_funds'));
+            $funds += C('reward');
+            M('UserFunds')->where('user_id = ' . $from_id)->setField('all_funds',$funds);
+
             $this->success("派遣成功");
         }else{
             $this->error("派遣失败");
@@ -210,6 +226,12 @@ class UserManagerController extends CommonController{
         if ($query) {
             //删除用户之后 也要删除登记信息
             M('SignJob')->where('user_id = ' . $user_id)->delete();
+            //删除消息列表
+            M('UserMessage')->where('user_id = ' . $user_id)->delete();
+            //删除用户资金
+            M('UserFunds')->where('user_id = ' . $user_id)->delete();
+            //删除用户资金详情
+            M('UserFundsDetail')->where('user_id = ' . $user_id)->delete();
             $this->success("删除成功");
         }else{
             $this->error("删除失败");

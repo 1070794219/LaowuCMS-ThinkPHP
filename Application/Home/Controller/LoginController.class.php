@@ -21,12 +21,19 @@ class LoginController extends CommonController{
 		if (!$send_verify || $verify != (int)$send_verify['verify'] || time() - (int)$send_verify['time'] > 300) {
 			$this->error("验证码无效");
 		}
+		//推广用户系统
+		if (!empty($from_id)) {
+			$this->addFans($from_id);
+		}else{
+			$from_id = 0;
+		}
 		$user = array(
 				'username' => $post['username'],
 				'password' => md5($post['password']),
 				'nickname' => "用户" . $post['username'],
 				'fans' => 0,
-				'status' => 0
+				'status' => 0,
+				'from_user_id' => $from_id
 			);
 		$query = M('User')->add($user);
 		if ($query) {
@@ -38,10 +45,6 @@ class LoginController extends CommonController{
 				);
 			$query = M('UserFunds')->add($funds);
 			if ($query) {
-				//推广用户系统
-				if (!empty($from_id)) {
-					$this->addFans($from_id);
-				}
 				//登录成功
 				session('id',$id);
 				session('username',$user['username']);
@@ -176,10 +179,10 @@ class LoginController extends CommonController{
 	public function addFans($from_id){
 		$fans = (int)(M('User')->where('id = ' . $from_id)->getField('fans'));
 		$fans++;
-		$funds = (float)(M('UserFunds')->where('user_id = ' . $from_id)->getField('funds'));
-		$funds += C('reward');
+		// $funds = (float)(M('UserFunds')->where('user_id = ' . $from_id)->getField('funds'));
+		// $funds += C('reward');
 		M('User')->where('id = ' . $from_id)->setField('fans',$fans);
-		M('UserFunds')->where('user_id = ' . $from_id)->setField('funds',$funds);
+		// M('UserFunds')->where('user_id = ' . $from_id)->setField('funds',$funds);
 	}
 
 	//验证码

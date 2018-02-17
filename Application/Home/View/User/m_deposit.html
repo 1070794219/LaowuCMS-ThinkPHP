@@ -55,10 +55,17 @@
     });
 	  //发送验证码
 	  $('#send_verify').click(function(){
-	  	$.post("{:U('User/sendMessage')}",{},function(res){
-	        layer.msg(res.message);
-	      });
-	  	settime($(this));
+	  	var money = $("input[name='money']").val();
+	  	if (parseInt(money) < 500 || money.length == 0) {
+	  		layer.msg("提现金额必须大于500元");
+	  		return ;
+	  	}else{
+	  		$.post("{:U('User/sendMessage')}",{},function(res){
+		        layer.msg(res.message);
+		      });
+		  	settime($(this));
+	  	}
+	  	
 	  });
 
 	var countdown=60; 

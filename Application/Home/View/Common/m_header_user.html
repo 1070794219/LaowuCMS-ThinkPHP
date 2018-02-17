@@ -11,8 +11,11 @@
 	<div class="m-user-logo">
 		<img src="__IMG__/logo-m-user.png" alt="">
 	</div>
-	<div class="m-detail-header" style="margin-bottom:10px;">
-		<button class="layui-btn">个人中心</button>
+	<div class="m-detail-header" style="margin-bottom:5px;">
+		<button class="layui-btn" id="return_index">返回首页</button>
+	</div>
+	<div class="m-detail-header" style="margin-bottom:10px;margin-top:5px">
+		<button class="layui-btn" id="return_index">返回首页</button>
 	</div>
 	<div class="m-user-header-btns">
 		<a href="{:U('User/popularize')}" class="layui-btn" id="m-header-user-1">介绍好友</a>
@@ -23,3 +26,13 @@
 		<a href="{:U('User/sendCompany')}" class="layui-btn" id="m-header-user-4">紧急救援</a>
 	</div>
 </div>
+
+<script>
+	$("#user_center").click(function(){
+		window.location.href = "{:U('User/index')}";
+	})	
+
+	$("#return_index").click(function(){
+		window.location.href = "{:U('Index/index')}";
+	})
+</script>

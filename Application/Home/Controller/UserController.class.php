@@ -19,7 +19,7 @@ class UserController extends CommonController{
 			$this->error("非法请求");
 		}
 		$this->assign('user',$user);
-		$this->assign('reward',M('UserFunds')->where('user_id = ' . $this->user_id)->getField('funds'));
+		$this->assign('reward',M('UserFunds')->where('user_id = ' . $this->user_id)->getField('all_funds'));
 		$this->display();
 	}
 

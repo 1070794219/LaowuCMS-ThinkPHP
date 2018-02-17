@@ -80,6 +80,8 @@ class MessageController extends CommonController{
 
     	$query = M('Message')->where('id = ' . $id)->delete();
     	if ($query) {
+    		//同时删除用户表中的信息
+    		M('UserMessage')->where('message_id = ' . $id)->delete();
     		$this->success("删除成功");
     	}else{
     		$this->error("删除失败");
