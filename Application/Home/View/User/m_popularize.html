@@ -1,9 +1,9 @@
 <title>介绍好友</title>
 <include file="Common/m_header_user" />
-<script src="__JS__/qrCode.js"></script>
-<script src="__JS__/jquery.qrcode.js"></script>
-<script src="__JS__/jquery.zclip.min.js"></script>
-<div class="m-popularize-main">
+<script src="__JS__/code.js"></script>
+<script src="__JS__/jquery.qrcode-diy.js"></script>
+<!-- <script src="__JS__/jquery.zclip.min.js"></script>
+ --><div class="m-popularize-main">
 	<div class="layui-field-box" style="font-size:16px">
 	    通过下面二维码或链接注册并被成功派遣的的每位用户您将获得{:C('reward')}元奖励！
 	</div>
@@ -26,28 +26,16 @@
 	}
 </style>
 <script> 
-	var url = "{$murl}";
+	var url = "{$url}";
     $("#qrCode").qrcode({
     	correctLevel:0,
 	    // render: "canvas",
 	    width: 150,
 	    height:150,
 	    // text: url
-	    text:url
+	    text:url,
+	    typeNumber: 5, //计算模式
+	    toImg: true //是否转化为图片,默认为false
 	});
 
-$(document).ready(function(){
-	if ( window.clipboardData ) { 
-    $('#copy-btn').click(function(){
-    	window.clipboardData.setData("Text", $('#url').val()); 
-            layui.msg('复制成功！'); 
-    })
-	} else { 
-	    $("#copy-btn").zclip({ 
-	        path:'__JS__/ZeroClipboard.swf', 
-	        copy:function(){return $('#url').val();}, 
-	        afterCopy:function(){layui.msg('复制成功！');} 
-	    }); 
-	} 
-})    
 </script>

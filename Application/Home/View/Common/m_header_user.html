@@ -12,7 +12,7 @@
 		<img src="__IMG__/logo-m-user.png" alt="">
 	</div>
 	<div class="m-detail-header" style="margin-bottom:5px;">
-		<button class="layui-btn" id="return_index">返回首页</button>
+		<button class="layui-btn" id="user_center">个人中心</button>
 	</div>
 	<div class="m-detail-header" style="margin-bottom:10px;margin-top:5px">
 		<button class="layui-btn" id="return_index">返回首页</button>
@@ -29,7 +29,7 @@
 
 <script>
 	$("#user_center").click(function(){
-		window.location.href = "{:U('User/index')}";
+		window.location.href = "{:U('User/myInfo')}";
 	})	
 
 	$("#return_index").click(function(){
