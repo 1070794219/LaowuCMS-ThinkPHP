@@ -111,5 +111,29 @@ class ClassifyController extends CommonController{
     	$query = $db->where('id = ' . $id)->setField('name',$name);
 	}
 
+    //查看成员
+    public function getMembers(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $id = (int)I('get.country_id');
+        $page = (int)I('get.page');
+        $limit = (int)I('get.limit');
+        
+        $query['code'] = 0;
+        $query['msg'] = "";
+        $query['count'] = (int)(M('User')->count());
+        $query['data'] = M('SignJob')->where("country_id = {$id}")->order('id asc')->limit(($page-1)*$limit,$page*$limit)->select();
+        foreach($query['data'] as &$one){
+            $one['sex'] = ($one['sex'] == 0 ? "女" : "男");
+            $one['status'] = ((int)$one['status1'] == 0 ? '<span class="layui-badge layui-bg-orange">未分配</span>' : '<span class="layui-badge layui-bg-cyan">已分配</span>');
+            $one['time'] = date('Y-m-d',$one['time']);
+        }
+        echo json_encode($query);
+
+    }
+
 }
 ?>

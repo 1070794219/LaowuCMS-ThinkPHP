@@ -301,6 +301,31 @@ class UserManagerController extends CommonController{
             $this->error("注册失败");
         }
     }
+
+    public function searchList(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $page = (int)I('get.page');
+        $limit = (int)I('get.limit');
+        $keyword = trim(I('get.keyword'));
+        if (empty($keyword)) {
+            $this->error("请输入关键词");
+        }
+
+        $query['code'] = 0;
+        $query['msg'] = "";
+        $query['count'] = (int)(M('User')->count());
+        $query['data'] = M('User')->where("username = {$keyword} or wechat_account = {$keyword} or nickname = {$keyword}")->order('id asc')->limit(($page-1)*$limit,$page*$limit)->select();
+        foreach($query['data'] as &$one){
+            $one['sex'] = ($one['sex'] == 0 ? "女" : "男");
+            $one['status'] = ((int)$one['status1'] == 0 ? '<span class="layui-badge layui-bg-orange">未分配</span>' : '<span class="layui-badge layui-bg-cyan">已分配</span>');
+            $one['time'] = date('Y-m-d',$one['time']);
+        }
+        echo json_encode($query);
+    }
 }
 
 ?>
