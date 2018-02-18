@@ -11,7 +11,7 @@ $type = ((int)I('get.type') == 0 ? "关于我们" : "联系我们");
 	</div>
 </div>
 <div class="layui-field-box m-detail-body">
-{$arc['body']}
+{$arc['body']|html_entity_decode=###}
 </div>
 <script>
 	$("#user_center").click(function(){

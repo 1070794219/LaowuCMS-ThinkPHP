@@ -113,6 +113,21 @@ class ArticleController extends CommonController{
 		M('Article')->where('id = ' . $id)->save($data);
 		$this->success("修改成功");
 	}
+
+	//置顶
+	public function stick(){
+		if (!$this->is_login) {
+    		//未登录
+    		$this->error("请登录",U('Admin/Login/index'));
+    	}
+		$id = (int)I('get.id');
+		$query = M('Article')->where("id = {$id}")->setField('time',time());
+		if ($query) {
+			$this->success("置顶成功");
+		}else{
+			$this->error("置顶失败");
+		}
+	}
 }
 
 ?>

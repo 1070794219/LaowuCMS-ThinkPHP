@@ -27,7 +27,7 @@
       ,{field: 'money', title: '提现金额'}
       ,{field: 'status', title: '状态',width:100}
       ,{field: 'time', title: '时间', width:120, sort: true}
-      ,{fixed:'right',title: '操作', width:120,align:'center',toolbar:'#bar'}
+      ,{fixed:'right',title: '操作', width:150,align:'center',toolbar:'#bar'}
     ]]
   });
 
@@ -44,6 +44,8 @@
 	    window.location.href = "{:U('Admin/FundsManager/userInfo')}" + "?user_id=" + user_id;
 	  }else if(layEvent === 'affirm'){
       window.location.href = "{:U('Admin/FundsManager/affirm')}" + "?id=" + id;
+    }else if(layEvent === 'delete'){
+      window.location.href = "{:U('Admin/FundsManager/delete')}" + "?id=" + id;
     }
 	});
  });
@@ -51,6 +53,7 @@
 <script type="text/html" id="bar">
   <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="affirm">确认</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
 </script>
 
 

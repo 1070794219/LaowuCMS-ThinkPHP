@@ -50,5 +50,20 @@ class FundsManagerController extends CommonController{
     		$this->error("处理失败");
     	}
 	}
+
+		public function delete(){
+		if (!$this->is_login) {
+    		//未登录
+    		$this->error("请登录",U('Admin/Login/index'));
+    	}
+    	$id = (int)$_GET['id'];
+
+    	$query = M('UserFundsDetail')->where("id = {$id}")->delete();
+    	if ($query) {
+    		$this->success("处理成功");
+    	}else{
+    		$this->error("处理失败");
+    	}
+	}
 }
 ?>

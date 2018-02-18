@@ -5,7 +5,7 @@
 	<fieldset class="layui-elem-field">
 	  <legend>{$arc['title']} - {$arc['time']|date="Y-m-d",###}</legend>
 	  <div class="layui-field-box">
-	    {$arc['body']}
+	    {$arc['body']|html_entity_decode=###}
 	  </div>
 	</fieldset>
 </div>

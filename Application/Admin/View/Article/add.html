@@ -16,7 +16,7 @@
 		<div class="layui-form-item layui-form-text">
 		    <label class="layui-form-label">正文</label>
 		    <div class="layui-input-block">
-		    	<textarea placeholder="请输入内容" class="layui-textarea" name="body"></textarea>
+		    	<textarea placeholder="请输入内容" class="layui-textarea" name="body" id="long-text"></textarea>
 		    </div>
 		</div>
 	  
@@ -27,4 +27,10 @@
 </div>
 <script>
 	layui.use('table');
+</script>
+<script>
+layui.use('layedit', function(){
+  var layedit = layui.layedit;
+  layedit.build('long-text'); //建立编辑器
+});
 </script>
