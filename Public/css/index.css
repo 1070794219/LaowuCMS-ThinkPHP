@@ -189,3 +189,18 @@ body .layui-layout-admin .footer-demo{height: 50px; padding: 5px 0;}
     display: block;
     width: 100%;
 }
+
+/*
+* 个人中心海报
+*/
+.popularize-post{
+	width: 450px;
+	height: 800px;
+	background: url(../images/post.jpg) no-repeat;
+}
+
+#qrCode{
+	position: absolute;
+	top: 166px;
+	left: 92px;
+}
