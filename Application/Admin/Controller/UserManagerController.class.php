@@ -237,6 +237,70 @@ class UserManagerController extends CommonController{
             $this->error("删除失败");
         }       
     }
+
+    public function adminAddUser(){
+        //国家信息
+        $this->assign('country',M('Country')->select());
+        $this->display();
+    }
+
+    //管理员增加用户
+    public function adminAddUserFunc(){
+        if (!$this->is_login) {
+            //未登录
+            $this->error("请登录",U('Admin/Login/index'));
+        }
+
+        $post = I('post.');
+        //判断是否存在
+        if (M('User')->where("username = {$post['username']}")->find()) {
+            $this->error("手机号已被注册");
+        }
+        //推广用户系统
+        // 系统创建
+        $user = array(
+                'username' => $post['username'],
+                'password' => md5($post['password']),
+                'nickname' => $post['username'],
+                'fans' => 0,
+                'status' => 0,
+                'from_user_id' => 0,
+                'time' => time(),
+            );
+        $query = M('User')->add($user);
+        if ($query) {
+            //设置金额
+            $id = M('User')->where('username = ' . $user['username'])->getField('id');
+            $funds = array(
+                    'user_id' => $id,
+                    'funds' => 0
+                );
+            $query = M('UserFunds')->add($funds);
+            //登记
+            $record = array(
+                'user_id' => $id,
+                'name' => trim($post['name']),
+                'phone' => $post['username'],
+                'country_id' => (int)$post['country'],
+                'sex' => (int)$post['sex'],
+                'wechat' => trim($post['wechat']),
+                'status1' => 0,
+                'status2' => 0,
+                'time' => time()
+            );
+            $query = M('SignJob')->add($record);
+            if ($query) {
+                //注册后直接发送短信
+                $message = "感谢您注册扬帆国际劳务派遣！系统已经为您自动登记工作，平台会马上为您匹配！";
+                sendNormalMessage($user['username'],$message);
+                $this->success("添加成功");
+            }else{
+                $this->error("添加失败");
+            }
+        }else{
+            $this->error("注册失败");
+        }
+    }
 }
 
 ?>
