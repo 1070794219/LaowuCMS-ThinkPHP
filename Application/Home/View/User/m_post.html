@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">     
+	<meta content="yes" name="apple-mobile-web-app-capable">     
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+	<meta content="telephone=no" name="format-detection">
+	<title>宣传海报</title>
+	<link rel="stylesheet" href="__LAY__/css/layui.css">
+	<link rel="stylesheet" href="__CSS__/index.css">
+	<script src="__LAY__/layui.js"></script>
+	<script src="__JS__/jquery.js"></script>
+	<script src="__JS__/code.js"></script>
+	<script src="__JS__/jquery.qrcode-diy.js"></script>
+	<script src="__JS__/html2canvas.min.js"></script>
+</head>
+<body>
+	<div class="popularize-post">
+		<div id="qrCode"></div>	
+	</div>
+</body>
+</html>
+<script>
+	var url = "{$url}";
+    $("#qrCode").qrcode({
+    	correctLevel:0,
+	    render: "canvas",
+	    width: 266,
+	    height:266,
+	    text:url,
+	    typeNumber: 5, //计算模式
+	    toImg: true //是否转化为图片,默认为false
+	});
+</script>
+<script>
+	$('.popularize-post').click(function(){
+		html2canvas(document.body).then(function(canvas) {  
+		 var image = new Image();
+		 image.src = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+         // var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url  
+         window.location.href= image.src; // 下载图片  
+
+     });  
+	});  
+</script>
