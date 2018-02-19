@@ -1,5 +1,6 @@
 <title>介绍好友</title>
 <include file="Common/m_header_user" />
+<script src="__JS__/jquery.js"></script>
 <script src="__JS__/code.js"></script>
 <script src="__JS__/jquery.qrcode-diy.js"></script>
 <!-- <script src="__JS__/jquery.zclip.min.js"></script>
@@ -12,6 +13,7 @@
 	    	<div id="qrCode" style="border:solid 10px #fff"></div>
 	    </div>
 	</div>
+	<a class="layui-btn" style="width:70%;margin-left:15%;margin-bottom:10px;background:#ce6600" id="post-btn" href="{:U('User/post')}">我的宣传海报</a>
 	<div class="layui-form-item">
 	    <div class="layui-input-inner">
 	      <span id="url">{$url}</span>
