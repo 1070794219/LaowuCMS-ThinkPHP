@@ -23,6 +23,10 @@ class ArticleController extends CommonController{
 		$query['msg'] = "";
 		$query['count'] = (int)(M('Article')->where("type = {$type}")->count());
 		$query['data'] = M('Article')->where("type = {$type}")->order('time desc')->limit(($page-1)*$limit,$page*$limit)->select();
+		foreach($query['data'] as &$one){
+			$one['time'] = date("Y-m-d",$one['time']);
+		}
+
 		echo json_encode($query);
 	}
 
