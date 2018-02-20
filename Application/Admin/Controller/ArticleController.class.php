@@ -107,9 +107,8 @@ class ArticleController extends CommonController{
 		$data = array(
 				'title' => trim($post['title']),
 				'body' => trim($post['body']),
-				'time' => time(),
-				'type' => (int)$post['type']
-			);
+				'time' => time(),	
+				);
 		M('Article')->where('id = ' . $id)->save($data);
 		$this->success("修改成功");
 	}
