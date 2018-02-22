@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="__LAY__/css/layui.css">
+<link rel="stylesheet" href="__CSS__/index.css">
+<script src="__LAY__/layui.js"></script>
+<div class="layui-main myInfo-main">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+	  <legend>管理员信息</legend>
+	</fieldset>
+	  <form action="{:U('Admin/Manager/addManager')}" class="layui-form" method="post">
+	  	<div class="layui-form-item">
+	    <label class="layui-form-label">用户名</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="username" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">密码</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="password" lay-verify="required"  autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+		<div class="layui-form-item">
+		    <button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left:170px">添加</button>
+		</div>
+	  </form>	 
+</div>
+
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form = layui.form, $ = layui.jquery;
+    });
+</script>
